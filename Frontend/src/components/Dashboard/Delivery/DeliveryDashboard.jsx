@@ -18,7 +18,7 @@ import DashboardHeader from '../common/DashboardHeader';
 import './DeliveryDashboard.css';
 import useBlockUnloadOnActiveRequest from '../../../hooks/useBlockUnloadOnActiveRequest';
 
-const DeliveryDashboard = () => {
+const DeliveryDashboard = ({ providerId }) => {
   const { currentUser } = useAuth();
   const [isAvailable, setIsAvailable] = useState(true);
   const [activeRequests, setActiveRequests] = useState([]);
@@ -26,58 +26,26 @@ const DeliveryDashboard = () => {
   const [requestHistory, setRequestHistory] = useState([]);
   const [earningsData, setEarningsData] = useState(null);
 
-useEffect(() => {
-  const fetchEarningsData = async () => {
-    if (!currentUser?.providerId) {
-      console.error('Provider ID is missing');
-      return;
-    }
+  // Fetch earnings data
+  useEffect(() => {
+    const fetchEarningsData = async () => {
+      const id = providerId || currentUser?._id;
+      if (!id) {
+        console.error("Provider ID is missing (no currentUser._id either)");
+        return;
+      }
 
-    try {
-      const data = await getProviderEarnings(currentUser.providerId);
-      setEarningsData(data);
-    } catch (error) {
-      console.error('Failed to fetch earnings data:', error);
-    }
-  };
+      try {
+        const res = await getProviderEarnings(id);
+        console.log("📊 Earnings API Response:", res);
+        setEarningsData(res);
+      } catch (err) {
+        console.error("Error fetching earnings", err);
+      }
+    };
 
-  fetchEarningsData();
-}, [currentUser?.providerId]);
-
-useEffect(() => {
-  const fetchRecentServices = async () => {
-    if (!currentUser?.providerId) {
-      console.error('Provider ID is missing for fetching recent services');
-      return;
-    }
-
-    try {
-      const data = await getProviderEarnings(currentUser.providerId); // Assuming same API returns recent services
-      setEarningsData(data);
-    } catch (error) {
-      console.error('Failed to fetch recent services:', error);
-    }
-  };
-
-  fetchRecentServices();
-}, [currentUser?.providerId]);
-
-useEffect(() => {
-  const fetchEarnings = async () => {
-    if (!currentUser?.providerId) {
-      console.error('Provider ID is missing');
-      return;
-    }
-    try {
-      const data = await getProviderEarnings(currentUser.providerId);
-      setEarningsData(data);
-    } catch (error) {
-      console.error('Failed to fetch earnings data:', error);
-    }
-  };
-
-  fetchEarnings();
-}, [currentUser?.providerId]);
+    fetchEarningsData();
+  }, [providerId, currentUser?._id]);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [watchId, setWatchId] = useState(null);
   const currentRequestRef = React.useRef(null);
@@ -478,7 +446,7 @@ useEffect(() => {
             </div>
             <div className="stat-card">
               <h4>Services This Week</h4>
-              <p>{earningsData?.servicesThisWeek || 0}</p>
+              <p>{earningsData?.recentServices?.length|| 0}</p>
             </div>
           </div>
         </div>
