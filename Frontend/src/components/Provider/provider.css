@@ -1,0 +1,5 @@
+/* Provider panel styles */
+.provider-panel{padding:16px}
+#requests-list .request-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:12px;border-radius:8px;margin-bottom:8px}
+.accepted-list li{background:transparent;padding:8px;border-radius:6px}
+.btn{border-radius:8px}

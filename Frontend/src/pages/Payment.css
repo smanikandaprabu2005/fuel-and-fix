@@ -1,0 +1,22 @@
+/* Minimal styles for the Payment page */
+.payment-page {
+  max-width: 720px;
+  margin: 24px auto;
+  padding: 16px;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+.payment-card {
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 16px;
+  background: #fff;
+  color: black;
+}
+.payment-card p { margin: 8px 0; }
+.payment-card .amount { font-weight: 700; font-size: 1.2rem; margin-top: 12px; }
+.actions { margin-top: 16px; }
+.btn { padding: 8px 14px; border-radius: 6px; cursor: pointer; border: none; }
+.btn-primary { background: #1976d2; color: white; }
+.error { color: #cc0000; margin-bottom: 12px; }
+
+.payment-page h2 { margin-bottom: 12px; }

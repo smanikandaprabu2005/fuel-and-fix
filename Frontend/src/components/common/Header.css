@@ -1,0 +1,6 @@
+.header { background: linear-gradient(90deg, #07142a, #0b2540); color: #fff; padding: 12px 20px; box-shadow: 0 2px 8px rgba(2,6,23,0.6); }
+.header .container { display:flex; align-items:center; justify-content:space-between; max-width:1200px; margin:0 auto; }
+.header .logo a { color: #fff; font-weight:700; font-size:1.1rem; text-decoration:none; }
+.header nav ul { display:flex; gap:12px; margin:0; padding:0; list-style:none; }
+.header nav a { color: rgba(255,255,255,0.9); text-decoration:none; padding:6px 10px; border-radius:6px; }
+.header nav a:hover { background: rgba(255,255,255,0.03); }

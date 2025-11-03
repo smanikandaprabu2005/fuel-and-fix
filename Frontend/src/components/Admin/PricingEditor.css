@@ -1,0 +1,3 @@
+.pricing-editor { background: #071428; padding: 16px; border-radius: 8px; color: #dff3ff; }
+.pricing-editor .row { display:flex; gap:12px; margin-bottom:8px }
+.pricing-editor input, .pricing-editor select { margin-left:5px;padding:8px; border-radius:15px; border:1px solid rgba(24, 110, 185, 0.736); background:#0b1220; color:#e6eef8 }

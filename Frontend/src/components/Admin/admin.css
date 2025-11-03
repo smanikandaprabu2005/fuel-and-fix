@@ -1,0 +1,5 @@
+/* Admin panel styles */
+.admin-panel { display:flex; flex-direction:column; gap:16px }
+.admin-header { display:flex; justify-content:space-between; align-items:center }
+.analytics-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap:16px }
+.card { padding:12px; border-radius:10px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03)}

@@ -1,0 +1,65 @@
+.dashboard { padding:20px }
+
+.dashboard-content { margin-top:20px }
+
+.stats-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:20px; margin:20px 0 }
+
+.stat-card { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:18px; border-radius:10px; border:1px solid rgba(255,255,255,0.03) }
+
+.stat-card h4 { color:var(--muted); margin-bottom:8px }
+
+.stat-card p { font-size:20px; font-weight:700; color:var(--text); margin:0 }
+
+.action-buttons{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;margin-top:15px}
+
+.status-section{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);margin-bottom:20px}
+
+.status-toggle{display:flex;align-items:center;gap:15px;margin-top:10px}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color: rgba(255,255,255,0.06); transition:.4s }
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: .4s;
+}
+
+input:checked + .slider { background: linear-gradient(90deg,var(--primary),var(--accent)) }
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+.slider.round{ border-radius:34px }
+
+.slider.round:before { border-radius:50% }
+
+.status-text{font-size:16px;font-weight:600;color:var(--text)}
+
+.earnings-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-top:15px}
+
+.request-list, .history-list { background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); padding:16px; border-radius:10px; border:1px solid rgba(255,255,255,0.03); margin-top:15px }
+
+.dashboard h3{color:rgb(0, 183, 255);margin:25px 0 15px}
+
+.btn{padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+.btn-primary{background:linear-gradient(90deg,var(--primary),#43a047);color:#fff}
+.btn-primary:hover{opacity:0.95}

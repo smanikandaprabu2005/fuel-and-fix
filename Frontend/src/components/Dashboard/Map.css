@@ -1,0 +1,2 @@
+.map-container { border-radius: 8px; overflow: hidden; box-shadow: 0 6px 20px rgba(2,6,23,0.5); border: 1px solid rgba(255,255,255,0.03); }
+.map-container .leaflet-container { border-radius: 8px; }

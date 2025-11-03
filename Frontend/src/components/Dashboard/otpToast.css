@@ -1,0 +1,43 @@
+/* Simple toast notification styles for OTP */
+.otp-toast {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  background: #222;
+  color: #fff;
+  padding: 20px 32px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  z-index: 9999;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 260px;
+  animation: otp-toast-in 0.3s;
+}
+.otp-toast .otp-code {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+  margin: 8px 0 12px 0;
+  color: #ffd600;
+}
+.otp-toast .close-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.1rem;
+  margin-top: 8px;
+  cursor: pointer;
+  align-self: flex-end;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.otp-toast .close-btn:hover {
+  opacity: 1;
+}
+@keyframes otp-toast-in {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
