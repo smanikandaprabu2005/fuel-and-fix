@@ -3,7 +3,7 @@ import './styles/theme.css';
 import './components/common/common.css';
 import './components/Auth/Auth.css';
 import './components/Admin/admin.css';
-import './components/Dashboard/dashboard.css';
+import './components/Dashboard/Dashboard.css';
 import './components/Provider/provider.css';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
