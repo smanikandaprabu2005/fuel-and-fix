@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = process.env.VITE_API_URL
+const SOCKET_URL = import.meta.env.VITE_API_URL || "https://fuel-and-fix.onrender.com";
+
 //|| 'http://localhost:5000';
 
 
