@@ -40,12 +40,14 @@ router.get('/nearby', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+// @route   GET api/mechanics/:id/requests
+// @desc    Get all service requests assigned to a mechanic
 router.get('/:id/requests', async (req, res) => {
   try {
     const mechanicId = req.params.id;
+    const ServiceRequest = require('../models/ServiceRequest'); // <-- adjust to your actual filename if different
 
-    // Example: Fetch service requests linked to this mechanic
-    const ServiceRequest = require('../models/ServiceRequest');
+    // Find all service requests assigned to this mechanic
     const requests = await ServiceRequest.find({ mechanic: mechanicId });
 
     if (!requests || requests.length === 0) {
@@ -54,9 +56,10 @@ router.get('/:id/requests', async (req, res) => {
 
     res.json(requests);
   } catch (err) {
-    console.error(err.message);
+    console.error('Error fetching mechanic requests:', err.message);
     res.status(500).send('Server error');
   }
 });
+
 
 module.exports = router;
