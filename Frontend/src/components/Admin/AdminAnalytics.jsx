@@ -15,7 +15,7 @@ const AdminAnalytics = () => {
     let mounted = true;
     const load = async () => {
       try {
-        const res = await api.get('api/admin/stats');
+        const res = await api.get('/api/admin/stats');
         if (!mounted) return;
         setStats(res.data);
       } catch (err) {
@@ -33,7 +33,7 @@ const AdminAnalytics = () => {
   const refresh = async () => {
     setRefreshing(true);
     try {
-      const res = await api.get('api/admin/stats');
+      const res = await api.get('/api/admin/stats');
       setStats(res.data);
     } catch (e) {
       console.error('Refresh failed', e);

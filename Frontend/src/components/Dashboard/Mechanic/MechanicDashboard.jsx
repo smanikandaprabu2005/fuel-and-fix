@@ -533,7 +533,7 @@ useEffect(() => {
 useEffect(() => {
   const loadPastRequests = async () => {
     try {
-      const res = await api.get(`/mechanic/${currentUser?._id}/requests`);
+      const res = await api.get(`/api/mechanic/${currentUser?._id}/requests`);
       setRequestHistory(res.data);
       console.log("📦 Loaded past request history:", res.data);
     } catch (err) {

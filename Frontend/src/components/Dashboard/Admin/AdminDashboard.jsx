@@ -20,6 +20,7 @@ const AdminDashboard = () => {
     completedRequests: 0,
     totalEarnings: 0
   });
+
   const [users, setUsers] = useState([]);
   const [mechanics, setMechanics] = useState([]);
   const [delivery, setDelivery] = useState([]);
@@ -40,7 +41,7 @@ const AdminDashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await api.get('api/admin/stats');
+      const response = await api.get('/api/admin/stats');
       setStats(response.data);
     } catch (error) {
       console.error('Error fetching stats:', error);
@@ -49,7 +50,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await api.get(`api/admin/users?page=${page}`);
+      const response = await api.get(`/api/admin/users?page=${page}`);
       setUsers(response.data.users);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -59,7 +60,7 @@ const AdminDashboard = () => {
 
   const fetchMechanics = async () => {
     try {
-      const response = await api.get(`api/admin/mechanics?page=${page}`);
+      const response = await api.get(`/api/admin/mechanics?page=${page}`);
       setMechanics(response.data.mechanics);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -69,7 +70,7 @@ const AdminDashboard = () => {
 
   const fetchDelivery = async () => {
     try {
-      const response = await api.get(`api/admin/delivery?page=${page}`);
+      const response = await api.get(`/api/admin/delivery?page=${page}`);
       setDelivery(response.data.delivery);
       setTotalPages(response.data.totalPages);
     } catch (error) {
@@ -138,7 +139,7 @@ const AdminDashboard = () => {
       }
 
       // Use the unified provider creation endpoint
-      const endpoint = 'api/admin/provider';
+      const endpoint = '/api/admin/provider';
       
       // Prepare the payload with all required fields
       const payload = {
@@ -179,7 +180,7 @@ const AdminDashboard = () => {
 
   const handleUserStatusUpdate = async (userId, active) => {
     try {
-      await api.patch(`api/admin/users/${userId}`, { active });
+      await api.patch(`/api/admin/users/${userId}`, { active });
       fetchUsers();
     } catch (error) {
       console.error('Error updating user status:', error);
@@ -200,7 +201,7 @@ const AdminDashboard = () => {
           }
         }
 
-        const endpoint = `api/admin/users/${userId}`;
+        const endpoint = `/api/admin/users/${userId}`;
         await api.delete(endpoint);
 
         // Show success message
