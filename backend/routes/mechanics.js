@@ -40,5 +40,23 @@ router.get('/nearby', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+router.get('/:id/requests', async (req, res) => {
+  try {
+    const mechanicId = req.params.id;
+
+    // Example: Fetch service requests linked to this mechanic
+    const ServiceRequest = require('../models/ServiceRequest');
+    const requests = await ServiceRequest.find({ mechanic: mechanicId });
+
+    if (!requests || requests.length === 0) {
+      return res.status(404).json({ message: 'No requests found for this mechanic' });
+    }
+
+    res.json(requests);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
 
 module.exports = router;
