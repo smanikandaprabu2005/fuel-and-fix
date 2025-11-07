@@ -12,7 +12,7 @@ const PricingEditor = () => {
     let mounted = true;
     const load = async () => {
       try {
-        const res = await api.get('/pricing');
+        const res = await api.get('api/pricing');
         if (!mounted) return;
         setPricing(res.data);
         setPricePerKm(res.data.pricePerKm || 7);

@@ -25,7 +25,7 @@ export const getProviderEarnings = async (providerId) => {
   }
 
   try {
-    const response = await api.get(`/service/earnings/${providerId}`);
+    const response = await api.get(`api/service/earnings/${providerId}`);
     console.log(response.data);
     return response.data; // Return the data from the API response
   } catch (error) {
@@ -35,11 +35,11 @@ export const getProviderEarnings = async (providerId) => {
 };
 
 export const register = (userData) => {
-  return api.post('/auth/register', userData);
+  return api.post('api/auth/register', userData);
 };
 
 export const login = (userData) => {
-  return api.post('/auth/login', userData);
+  return api.post('api/auth/login', userData);
 };
 
 export const refreshToken = async () => {
@@ -47,7 +47,7 @@ export const refreshToken = async () => {
   if (!currentToken) return null;
 
   try {
-    const response = await api.post('/auth/refresh', null, {
+    const response = await api.post('api/auth/refresh', null, {
       headers: { Authorization: currentToken }
     });
     
@@ -111,7 +111,7 @@ export const createServiceRequest = async (formData) => {
           formDataWithFiles.append('images', image);
         });
         
-        return api.post('/service/request', formDataWithFiles, {
+        return api.post('api/service/request', formDataWithFiles, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -121,7 +121,7 @@ export const createServiceRequest = async (formData) => {
 
     // If no files to upload, send as regular JSON
     console.log('Sending service request payload:', payload);
-    return api.post('/service/request', payload);
+    return api.post('api/service/request', payload);
   } catch (error) {
     console.error('Error creating service request:', error);
     throw error;
@@ -129,41 +129,41 @@ export const createServiceRequest = async (formData) => {
 };
 
 export const getUserServiceRequests = (userId) => {
-  return api.get(`/service/requests/${userId}`);
+  return api.get(`api/service/requests/${userId}`);
 };
 
 export const getNearbyMechanics = (lat, lng, distance = 10) => {
-  return api.get(`/mechanics/nearby?lat=${lat}&lng=${lng}&distance=${distance}`);
+  return api.get(`api/mechanics/nearby?lat=${lat}&lng=${lng}&distance=${distance}`);
 };
 
 export const getNearbyDeliveryPersons = (lat, lng, distance = 10) => {
-  return api.get(`/delivery/nearby?lat=${lat}&lng=${lng}&distance=${distance}`);
+  return api.get(`api/delivery/nearby?lat=${lat}&lng=${lng}&distance=${distance}`);
 };
 
 export const adminCreateMechanic = (data) => {
-  return api.post('/admin/create-mechanic', data);
+  return api.post('api/admin/create-mechanic', data);
 };
 
 export const adminCreateDelivery = (data) => {
-  return api.post('/admin/create-delivery', data);
+  return api.post('api/admin/create-delivery', data);
 };
 
 export const acceptServiceRequest = (data) => {
-  return api.post('/service/accept', data);
+  return api.post('api/service/accept', data);
 };
 
 export const updateServiceStatus = (data) => {
-  return api.post('/service/status', data);
+  return api.post('api/service/status', data);
 };
 
 export const payForService = (requestId, paymentInfo) => {
-  return api.post('/service/payment', { requestId, paymentInfo });
+  return api.post('api/service/payment', { requestId, paymentInfo });
 };
 
 export const createRazorpayOrder = (requestId) => {
-  return api.post('/service/payment/create-order', { requestId });
+  return api.post('api/service/payment/create-order', { requestId });
 };
 
 export const verifyRazorpayPayment = (payload) => {
-  return api.post('/service/payment/verify', payload);
+  return api.post('api/service/payment/verify', payload);
 };
