@@ -14,6 +14,7 @@ import './liveFuelPrice.css';
 // User Dashboard Component
 import BookingHistory from './User/BookingHistory';
 import DashboardHeader from './common/DashboardHeader';
+import UserAnimatedBackground from '../common/UserAnimatedBackground';
 
 import { useLocation } from 'react-router-dom';
 
@@ -193,6 +194,7 @@ const UserDashboardContent = ({ currentUser }) => {
 
   return (
     <div className="dashboard user-dashboard">
+      <UserAnimatedBackground />
       <DashboardHeader title="User Dashboard" role={currentUser.role} />
       {/* Floating live fuel price box */}
       <div className="live-fuel-price-box">
@@ -205,8 +207,8 @@ const UserDashboardContent = ({ currentUser }) => {
           <span>Diesel: {dieselPrice ? `₹${dieselPrice}/L` : 'Loading...'}</span>
         </div>
       </div>
-      <div className="dashboard-content">
-        <div className="service-section">
+      <div className="user-dashboard-layout">
+        <div className="service-request-wrapper">
           <ServiceRequest
             userLocation={userLocation}
             selectedProvider={selectedProvider}
@@ -218,7 +220,9 @@ const UserDashboardContent = ({ currentUser }) => {
             }}
           />
         </div>
-        <BookingHistory />
+        <div className="booking-history-wrapper">
+          <BookingHistory />
+        </div>
       </div>
     </div>
   );

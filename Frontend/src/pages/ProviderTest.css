@@ -1,2 +1,9 @@
-.provider-test { padding: 20px; }
-.provider-test h2 { color: #e6f4ff }
+.provider-test {
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+.provider-test h2 {
+  color: var(--neon-glow-primary); /* Use neon glow color */
+  text-shadow: 0 0 8px var(--neon-glow-primary);
+}

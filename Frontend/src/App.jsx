@@ -1,3 +1,4 @@
+import ThemeWrapper from './components/common/ThemeWrapper';
 import React from 'react';
 import './styles/theme.css';
 import './components/common/common.css';
@@ -54,60 +55,62 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <div className="app-container">
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/" element={<Landing />} />
-            <Route 
-              path="/dashboard" 
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route
-              path="/admin"
-              element={
-                <AdminRoute>
-                  <AdminDashboard />
-                </AdminRoute>
-              }
-            />
-            <Route
-              path="/admin/pricing"
-              element={
-                <AdminRoute>
-                  <PricingEditor />
-                </AdminRoute>
-              }
-            />
-            <Route
-              path="/admin/analytics"
-              element={
-                <AdminRoute>
-                  <AdminAnalytics />
-                </AdminRoute>
-              }
-            />
-            <Route
-              path="/payment"
-              element={
-                <ProtectedRoute>
-                  <Payment />
-                </ProtectedRoute>
-              }
-            />
-            <Route path="/debug" element={<Debug />} />
-            <Route path="/provider-test" element={
-              <ProviderRoute>
-                <ProviderTest />
-              </ProviderRoute>
-            } />
-            
-          </Routes>
-        </div>
+        <ThemeWrapper>
+          <div className="app-container">
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/" element={<Landing />} />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                } 
+              />
+              <Route
+                path="/admin"
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/pricing"
+                element={
+                  <AdminRoute>
+                    <PricingEditor />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/admin/analytics"
+                element={
+                  <AdminRoute>
+                    <AdminAnalytics />
+                  </AdminRoute>
+                }
+              />
+              <Route
+                path="/payment"
+                element={
+                  <ProtectedRoute>
+                    <Payment />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/debug" element={<Debug />} />
+              <Route path="/provider-test" element={
+                <ProviderRoute>
+                  <ProviderTest />
+                </ProviderRoute>
+              } />
+              
+            </Routes>
+          </div>
+        </ThemeWrapper>
       </Router>
     </AuthProvider>
   );

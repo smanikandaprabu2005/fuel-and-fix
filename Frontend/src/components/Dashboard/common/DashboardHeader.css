@@ -4,15 +4,16 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  background: rgba(0, 128, 164, 0.85);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: var(--glass-bg); /* Use glassmorphism background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 12px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: background-color 0.3s ease;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px var(--glass-shadow); /* Use theme shadow */
+  border-bottom: 1px solid var(--glass-border); /* Add theme border */
 }
 
 .header-content {
@@ -23,20 +24,23 @@
 
 .header-content h2 {
   margin: 0;
-  color: #ffffff;
+  color: var(--text); /* Use theme text color */
   font-size: 1.5rem;
   font-weight: 500;
+  text-shadow: 0 0 5px var(--neon-glow-primary); /* Add glow */
 }
 
 .admin-badge {
-  background: #ffffff;
-  color: rgb(0, 128, 164);
+  background: var(--neon-glow-secondary); /* Use neon glow color */
+  color: var(--dark-gradient-end); /* Dark text on glowing background */
   padding: 4px 12px;
   border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
+  box-shadow: 0 0 8px var(--neon-glow-secondary); /* Add glow */
 }
 
+/* Rely on global .btn for base styles, keep specific logout gradient */
 .btn-logout {
   background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
@@ -62,9 +66,4 @@
 .btn-logout:active {
   transform: translateY(0);
   box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
-}
-
-.btn-logout:hover {
-  background-color: #0052cc;
-  transform: translateY(-1px);
 }

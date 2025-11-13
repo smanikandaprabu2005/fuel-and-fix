@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import AnimatedBackground from '../common/AnimatedBackground';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -52,6 +53,7 @@ const Login = () => {
 
   return (
     <div className="auth-wrapper">
+      <AnimatedBackground />
       <div className="auth-container">
         <h2>Login to Your Account</h2>
         {error && <div className="error-message">{error}</div>}

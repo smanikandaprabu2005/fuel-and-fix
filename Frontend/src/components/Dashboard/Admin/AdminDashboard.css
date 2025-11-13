@@ -1,54 +1,91 @@
 .admin-dashboard {
   padding: 80px 24px 24px 24px; /* Added top padding to account for fixed header */
-  color: #ecf7ff;
-  background-color: #051019;
+  color: var(--text); /* Use theme text color */
+  /* Background handled by ThemeWrapper, remove redundant background here */
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
-.stats-grid {
+.admin-main-layout {
+  max-width: 1600px; /* Increased max-width for a more spacious feel */
+  margin: 0 auto; /* Center the layout */
+  padding: 0 24px; /* Add horizontal padding */
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 32px;
-  max-width: 400px;
+  gap: 32px; /* Consistent vertical spacing between main sections */
+}
+
+.admin-content-area {
+  display: flex;
+  flex-direction: column;
+  gap: 32px; /* Consistent vertical spacing within content area */
+}
+
+.admin-dashboard h3,
+.admin-dashboard h4 {
+  text-align: center; /* Center all headings within admin dashboard */
+  margin-bottom: 20px; /* Add some space below headings */
+  color: var(--neon-glow-primary); /* Make headings stand out */
+  text-shadow: 0 0 5px var(--neon-glow-primary);
+}
+
+.stats-row {
+  display: flex;
+  flex-direction: column; /* Arrange items vertically */
+  gap: 16px; /* Adjust gap for vertical spacing */
+  margin: 24px auto 80px auto; /* Center the column and adjust vertical margins */
+  max-width: 400px; /* Limit width for better readability of stacked cards */
 }
 
 .stat-card {
-  background: rgba(13, 23, 33, 0.8);
+  background: var(--glass-bg); /* Use glassmorphism background */
   border-radius: 8px;
   padding: 20px;
   width: 100%;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px 0 var(--glass-shadow);
+  transition: all 0.3s ease;
+  display: flex; /* Use flex for content alignment */
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 120px; /* Ensure consistent height */
 }
 
 .stat-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 25px 0 var(--glass-shadow), 0 0 10px var(--neon-glow-primary);
 }
 
 .stat-card h4 {
   margin: 0 0 12px 0;
-  color: #90caf9;
+  color: var(--muted); /* Use theme muted color */
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-shadow: none; /* Remove text-shadow from stat card headings */
 }
 
 .stat-card p {
   margin: 0;
   font-size: 28px;
   font-weight: bold;
-  color: #ffffff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: var(--text); /* Use theme text color */
+  text-shadow: 0 0 8px var(--neon-glow-secondary); /* Add glow */
 }
 
-.tabs, .user-tabs {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  margin-bottom: 24px;
+.tabs,
+.user-tabs {
+  border-bottom: 1px solid var(--glass-border); /* Use theme border */
+  margin-bottom: 32px; /* Increased margin for better separation */
   display: flex;
   gap: 4px;
+  justify-content: center; /* Center the tabs */
+  flex-wrap: wrap; /* Allow tabs to wrap on smaller screens */
 }
 
 .tab {
@@ -57,24 +94,25 @@
   background: none;
   cursor: pointer;
   font-size: 16px;
-  color: #90caf9;
+  color: var(--muted); /* Use theme muted color */
   transition: all 0.3s ease;
   border-radius: 8px 8px 0 0;
   position: relative;
-  margin-top: 50px;
-  
+  margin-top: 0; /* Remove margin-top, let parent handle spacing */
 }
 .user-tabs .tab {
   margin-top: 0;
 }
 .tab:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.05);
+  color: var(--neon-glow-primary); /* Neon glow on hover */
+  background: rgba(0, 255, 255, 0.05); /* Subtle glow background */
 }
 
 .tab.active {
-  color: #ffffff;
-  background: #0b2540;
+  color: var(--neon-glow-primary); /* Neon glow for active tab */
+  background: var(--glass-bg); /* Glassmorphism background for active tab */
+  box-shadow: 0 -2px 10px var(--glass-shadow);
+  font-weight: bold; /* Make active tab text bold */
 }
 
 .tab.active::after {
@@ -84,7 +122,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, #0b74de, #1e88e5);
+  background: linear-gradient(90deg, var(--neon-glow-primary), var(--neon-glow-secondary)); /* Neon gradient underline */
 }
 
 .users-table {
@@ -92,23 +130,27 @@
   border-collapse: separate;
   border-spacing: 0;
   margin-top: 24px;
-  background: #071428;
+  background: var(--glass-bg); /* Use glassmorphism background */
   border-radius: 12px;
   overflow: hidden;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px 0 var(--glass-shadow);
 }
 
 .users-table th,
 .users-table td {
   padding: 16px;
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ecf7ff;
+  text-align: center; /* Center table content */
+  border-bottom: 1px solid var(--glass-border); /* Use theme border */
+  color: var(--text);
 }
 
 .users-table th {
-  background: #0b2540;
+  background: rgba(0, 255, 255, 0.05); /* Subtle neon background for header */
   font-weight: 500;
-  color: #90caf9;
+  color: var(--neon-glow-primary); /* Neon glow for header text */
   text-transform: uppercase;
   font-size: 0.85rem;
   letter-spacing: 0.5px;
@@ -123,37 +165,51 @@
 
 .pagination button {
   padding: 8px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #071428;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  background: var(--glass-bg); /* Use glassmorphism background */
   cursor: pointer;
-  color: #90caf9;
+  color: var(--muted);
   border-radius: 6px;
   transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .pagination button:hover:not(:disabled) {
-  background: #0b2540;
+  background: rgba(0, 255, 255, 0.1);
   transform: translateY(-1px);
+  color: var(--neon-glow-primary);
+  box-shadow: 0 0 10px var(--neon-glow-primary);
 }
 
 .pagination button:disabled {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.03);
   color: rgba(255, 255, 255, 0.3);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 .pagination button.active {
-  background: linear-gradient(90deg, #0b74de, #1e88e5);
-  color: white;
+  background: linear-gradient(90deg, var(--neon-glow-primary), var(--neon-glow-secondary)); /* Neon gradient for active button */
+  color: var(--dark-gradient-end); /* Dark text on glowing background */
   border: none;
+  box-shadow: 0 0 15px var(--neon-glow-primary);
 }
 
 .service-requests {
   margin-top: 32px;
-  background: linear-gradient(135deg, #071428 0%, #0b2540 100%);
+  background: var(--glass-bg); /* Use glassmorphism background */
   border-radius: 12px;
   padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.service-requests:hover {
+  box-shadow: 0 12px 48px 0 var(--glass-shadow), 0 0 20px var(--neon-glow-secondary);
 }
 
 .request-filters {
@@ -166,31 +222,40 @@
 .request-filters select {
   padding: 10px 16px;
   border-radius: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #071428;
-  color: #ecf7ff;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  background: rgba(7, 20, 40, 0.7); /* Slightly darker glass background */
+  color: var(--text);
   cursor: pointer;
   transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .request-filters select:hover {
-  background: #0b2540;
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 255, 255, 0.1);
+  border-color: var(--neon-glow-primary);
 }
 
 .request-filters select option {
-  background: #071428;
-  color: #ecf7ff;
+  background: var(--dark-gradient-end); /* Dark background for options */
+  color: var(--text);
 }
 
 .provider-form {
   max-width: 500px;
   margin: 24px auto;
   padding: 32px;
-  background: linear-gradient(135deg, #071428 0%, #0b2540 100%);
+  background: var(--glass-bg); /* Use glassmorphism background */
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.provider-form:hover {
+  box-shadow: 0 12px 48px 0 var(--glass-shadow), 0 0 20px var(--neon-glow-primary);
 }
 
 .form-group {
@@ -200,44 +265,49 @@
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  color: #90caf9;
+  color: var(--neon-glow-primary); /* Neon glow for labels */
   font-size: 0.9rem;
   font-weight: 500;
+  text-shadow: 0 0 3px var(--neon-glow-primary);
+  text-align: center; /* Center form labels */
 }
 
 .form-group input,
 .form-group select {
   width: 95%;
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border); /* Use theme border */
   border-radius: 6px;
-  background: #071428;
-  color: #ecf7ff;
+  background: rgba(7, 20, 40, 0.7); /* Slightly darker glass background */
+  color: var(--text);
   font-size: 1rem;
   transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: #0b74de;
+  border-color: var(--neon-glow-primary); /* Neon glow on focus */
   outline: none;
-  box-shadow: 0 0 0 2px rgba(11, 116, 222, 0.2);
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.3), 0 0 10px var(--neon-glow-primary);
 }
 
 .form-group input:hover,
 .form-group select:hover {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--neon-glow-primary);
 }
 
 .form-group select option {
-  background: #071428;
-  color: #ecf7ff;
+  background: var(--dark-gradient-end); /* Dark background for options */
+  color: var(--text);
 }
 
 .btn-group {
   display: flex;
   gap: 12px;
   margin-top: 24px;
+  justify-content: center; /* Center button groups */
 }
 
 /* Layout and responsive styles */
@@ -246,49 +316,30 @@
   margin: 0 auto;
 }
 
-.stats-row {
-  display: flex;
-  gap: 24px;
-  align-items: stretch;
-  flex-wrap: wrap;
-  margin: 24px 0;
-}
+/* Removed .stats-row flex properties as it's now a grid */
 
 /* Additional utility classes */
-.btn {
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
-}
-
-.btn-primary {
-  background: linear-gradient(90deg, #0b74de, #1e88e5);
-  color: white;
-}
-
-.btn-primary:hover {
-  background: linear-gradient(90deg, #1e88e5, #2196f3);
-  transform: translateY(-1px);
-}
-
+/* Rely on global .btn and .btn-primary for styling */
 .btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: #90caf9;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--glass-bg); /* Use glassmorphism background */
+  color: var(--neon-glow-primary);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px var(--glass-shadow);
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(0, 255, 255, 0.1);
   transform: translateY(-1px);
+  box-shadow: 0 4px 15px var(--glass-shadow), 0 0 10px var(--neon-glow-primary);
 }
 
 .btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
+  box-shadow: none;
 }
 
 /* Responsive breakpoints */
@@ -300,7 +351,7 @@
 
 @media (max-width: 900px) {
   .stats-row {
-    justify-content: center;
+    justify-content: center; /* Center grid items on smaller screens */
   }
   .stats-grid {
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -308,8 +359,8 @@
 }
 
 @media (max-width: 520px) {
-  .stats-grid {
-    grid-template-columns: 1fr;
+  .stats-row {
+    grid-template-columns: 1fr; /* Single column on very small screens */
   }
   .request-filters {
     flex-direction: column;

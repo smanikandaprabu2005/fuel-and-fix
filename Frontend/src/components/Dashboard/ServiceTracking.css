@@ -1,13 +1,13 @@
 /* OSRM distance/ETA box */
 .distance-label {
-  background: #fff;
+  background: var(--glass-bg); /* Use glassmorphism background */
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px var(--glass-shadow); /* Use theme shadow */
   padding: 12px 16px;
   font-size: 16px;
   font-weight: 600;
-  color: #4285F4;
-  border: 1px solid #e0e0e0;
+  color: var(--neon-glow-primary); /* Use neon glow color */
+  border: 1px solid var(--glass-border); /* Use theme border */
   text-align: center;
   min-width: 70px;
   min-height: 40px;
@@ -16,13 +16,21 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  text-shadow: 0 0 5px var(--neon-glow-primary);
 }
 .service-tracking-container {
   padding: 20px;
-  background: #fff;
+  background: var(--glass-bg); /* Use glassmorphism background */
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px var(--glass-shadow); /* Use theme shadow */
   margin: 20px 0;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
 }
 
 .map-container {
@@ -30,6 +38,8 @@
   border-radius: 8px;
   overflow: hidden;
   position: relative;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  box-shadow: 0 4px 20px var(--glass-shadow); /* Use theme shadow */
 }
 
 /* Hide routing machine control */
@@ -49,43 +59,51 @@
 }
 
 /* Style the routing control */
+/* This might be overridden by display: none !important above, but good to style for consistency if it ever shows */
 .leaflet-routing-container {
-  background-color: white;
+  background-color: var(--glass-bg); /* Use glassmorphism background */
   padding: 10px;
   border-radius: 4px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px var(--glass-shadow); /* Use theme shadow */
   max-width: 320px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: var(--text);
 }
 
 .leaflet-routing-alt {
   max-height: 200px;
   overflow-y: auto;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--glass-border); /* Use theme border */
 }
 
 .estimated-time {
   padding: 10px;
-  background-color: #f8f9fa;
+  background-color: rgba(0, 255, 255, 0.1); /* Subtle neon background */
   border-radius: 4px;
   margin-bottom: 15px;
   font-weight: 500;
-  color: #2c3e50;
+  color: var(--neon-glow-primary); /* Use neon glow color */
+  border: 1px solid var(--neon-glow-primary);
+  text-shadow: 0 0 5px var(--neon-glow-primary);
 }
 
 /* Loading state */
 .loading {
   text-align: center;
   padding: 20px;
-  color: #666;
+  color: var(--muted);
 }
 
 /* Error state */
 .error-message {
-  color: #dc3545;
+  color: #ef5350; /* Consistent error color */
   padding: 10px;
-  background-color: #fff3f3;
+  background-color: rgba(220, 53, 69, 0.2); /* Reddish background */
   border-radius: 4px;
   margin-bottom: 15px;
+  border: 1px solid rgba(220, 53, 69, 0.3);
 }
 
 /* Custom popup styles */
@@ -93,22 +111,31 @@
   margin: 8px 12px;
   font-size: 14px;
   line-height: 1.4;
+  color: var(--text);
 }
 
 .leaflet-popup-content-wrapper {
   border-radius: 4px;
+  background: var(--glass-bg); /* Use glassmorphism background */
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 10px var(--glass-shadow);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 /* Marker animations */
 @keyframes marker-pulse {
   0% {
     transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7);
   }
-  50% {
+  70% {
     transform: scale(1.2);
+    box-shadow: 0 0 0 15px rgba(0, 255, 255, 0);
   }
   100% {
     transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
   }
 }
 
@@ -117,14 +144,7 @@
 }
 
 /* Distance label shown on the route */
-.distance-label {
-  background: rgba(255,255,255,0.95);
-  padding: 6px 10px;
-  border-radius: 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-  font-weight: 600;
-  color: #2c3e50;
-}
+/* This is a duplicate, keeping the first one */
 
 /* Enhance the pulsing overlay style (SVG Circle) */
 .leaflet-interactive.provider-marker {

@@ -49,6 +49,7 @@ import DashboardHeader from '../common/DashboardHeader';
 import ServiceNotification from '../common/ServiceNotification';
 import ServiceTracking from '../ServiceTracking';
 import './MechanicDashboard.css';
+import MechanicAnimatedBackground from '../../common/MechanicAnimatedBackground';
 import useBlockUnloadOnActiveRequest from '../../../hooks/useBlockUnloadOnActiveRequest';
 import api from "../../../services/api"; // adjust path if needed
 
@@ -704,106 +705,135 @@ console.log("🧾 requestHistory:", requestHistory);
 
   return (
     <div className="dashboard mechanic-dashboard">
+      <MechanicAnimatedBackground />
       <DashboardHeader title="Mechanic Dashboard" role="mechanic" />
       <div className="dashboard-content">
-        <div className="status-section">
-          <h3>Your Status</h3>
-          <div className="status-toggle">
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={isAvailable}
-                onChange={() => setIsAvailable(!isAvailable)}
-              />
-              <span className="slider round"></span>
-            </label>
-            <span className="status-text">
-              {isAvailable ? 'Available for Service' : 'Not Available'}
-            </span>
-          </div>
-          <div className="service-types">
-            <h4>Service Types</h4>
-            <div className="service-type-toggles">
-              {serviceTypes.map(type => (
-                <button
-                  key={type}
-                  className={`service-type-btn ${selectedServices.includes(type) ? 'active' : ''}`}
-                  onClick={() => toggleServiceType(type)}
-                >
-                  <span className="service-icon">{ServiceTypeIcons[type]}</span>
-                  {type.charAt(0).toUpperCase() + type.slice(1)}
-                </button>
-              ))}
+        <div className="left-column">
+          <div className="dashboard-section status-section">
+            <h3>Your Status</h3>
+            <div className="status-toggle">
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={isAvailable}
+                  onChange={() => setIsAvailable(!isAvailable)}
+                />
+                <span className="slider round"></span>
+              </label>
+              <span className="status-text">
+                {isAvailable ? 'Available for Service' : 'Not Available'}
+              </span>
+            </div>
+            <div className="service-types">
+              <h4>Service Types</h4>
+              <div className="service-type-toggles">
+                {serviceTypes.map(type => (
+                  <button
+                    key={type}
+                    className={`service-type-btn ${selectedServices.includes(type) ? 'active' : ''}`}
+                    onClick={() => toggleServiceType(type)}
+                  >
+                    <span className="service-icon">{ServiceTypeIcons[type]}</span>
+                    {type.charAt(0).toUpperCase() + type.slice(1)}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
-          
-          {/* Remove initial map before accepting a request */}
         </div>
 
-        {currentRequest ? (
-          <div className="current-request">
-            <h3>Current Service</h3>
-            <div className="request-details">
-              <div className="request-info">
-                <h4>Service Details</h4>
-                <p>Type: {currentRequest.mechanicalType}</p>
-                <p>Location: {currentRequest.location.address}</p>
-                <p>Description: {currentRequest.description}</p>
-                <p>Status: {currentRequest.status}</p>
+        <div className="middle-column">
+          <div className="dashboard-section earnings-section">
+            <h3>Earnings Overview</h3>
+            <div className="earnings-stats">
+              <div className="stat-card">
+                <h4>Today's Earnings</h4>
+                <p>₹{earningsData?.todayEarnings ?? 0}</p>
               </div>
-              {currentRequest.images?.length > 0 && (
-                <div className="request-images">
-                  <h4>Issue Images</h4>
-                  <div className="image-grid">
-                    {currentRequest.images.map((image, index) => (
-                      <img 
-                        key={index}
-                        src={image.url}
-                        alt={`Issue ${index + 1}`}
-                        onClick={() => window.open(image.url, '_blank')}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-              <div className="status-actions">
-                <button
-                  className="btn btn-primary"
-                  onClick={() => handleStatusUpdate('on-way')}
-                  disabled={statusLoading}
-                >
-                  Start Journey
-                </button>
-                <button
-                  className="btn btn-primary"
-                  onClick={() => setOtpPopupOpen(true)}
-                  disabled={statusLoading}
-                >
-                  Start Service
-                </button>
-                <button
-                  className="btn btn-success"
-                  onClick={() => {
-                    // Open amount modal flow handled by handleStatusUpdate
-                    handleStatusUpdate('completed');
-                  }}
-                  disabled={statusLoading || currentRequest.status !== 'in-progress'}
-                >
-                  Complete Service
-                </button>
+              <div className="stat-card">
+                <h4>Weekly Earnings</h4>
+                <p>₹{earningsData?.weeklyEarnings ?? 0}</p>
               </div>
-              <div className="service-map">
-                <ServiceTracking
-                  serviceRequest={currentRequest}
-                  userLocation={currentRequest.location}
-                  providerLocation={currentLocation}
-                  role="mechanic"
-                />
+              <div className="stat-card">
+                <h4>Services This Week</h4>
+                <p>{earningsData?.recentServices?.length}</p>
               </div>
             </div>
           </div>
-        ) : (
-          <div className="service-requests">
+          <div className="dashboard-section">
+            {currentRequest ? (
+              <div className="current-request">
+                <h3>Current Service</h3>
+                <div className="request-details">
+                  <div className="request-info">
+                    <h4>Service Details</h4>
+                    <p>Type: {currentRequest.mechanicalType}</p>
+                    <p>Location: {currentRequest.location.address}</p>
+                    <p>Description: {currentRequest.description}</p>
+                    <p>Status: {currentRequest.status}</p>
+                  </div>
+                  {currentRequest.images?.length > 0 && (
+                    <div className="request-images">
+                      <h4>Issue Images</h4>
+                      <div className="image-grid">
+                        {currentRequest.images.map((image, index) => (
+                          <img 
+                            key={index}
+                            src={image.url}
+                            alt={`Issue ${index + 1}`}
+                            onClick={() => window.open(image.url, '_blank')}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  <div className="status-actions">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => handleStatusUpdate('on-way')}
+                      disabled={statusLoading}
+                    >
+                      Start Journey
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => setOtpPopupOpen(true)}
+                      disabled={statusLoading}
+                    >
+                      Start Service
+                    </button>
+                    <button
+                      className="btn btn-success"
+                      onClick={() => {
+                        // Open amount modal flow handled by handleStatusUpdate
+                        handleStatusUpdate('completed');
+                      }}
+                      disabled={statusLoading || currentRequest.status !== 'in-progress'}
+                    >
+                      Complete Service
+                    </button>
+                  </div>
+                  <div className="service-map">
+                    <ServiceTracking
+                      serviceRequest={currentRequest}
+                      userLocation={currentRequest.location}
+                      providerLocation={currentLocation}
+                      role="mechanic"
+                    />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="no-current-request">
+                <h3>No Active Service</h3>
+                <p>Accept a request from the 'Available Requests' list to begin a service.</p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className="right-column">
+          <div className="dashboard-section service-requests">
             <h3>Available Requests</h3>
             <div className="request-list">
               {activeRequests.length > 0 ? (
@@ -835,54 +865,33 @@ console.log("🧾 requestHistory:", requestHistory);
               )}
             </div>
           </div>
-        )}
-
-<div className="service-history">
-  <h3>Recent Services</h3>
-  <div className="history-list">
-    {earningsData?.recentServices?.length > 0 ? (
-      earningsData.recentServices.map((service) => (
-        <div key={service._id} className="history-card">
-          <div className="history-header">
-            <span className="service-icon">
-              {ServiceTypeIcons[service.mechanicalType] || "🔧"}
-            </span>
-            <span className="service-date">
-              {new Date(service.date).toLocaleDateString()}
-            </span>
-          </div>
-          <p className="service-type">
-            {service.mechanicalType
-              ? service.mechanicalType.charAt(0).toUpperCase() +
-                service.mechanicalType.slice(1)
-              : "Service"}
-          </p>
-          <p>Location: {addressMap[service._id] || "unknown"}</p>
-
-
-          <p>Earnings: ₹{service.payment?.amount ?? 0}</p>
-        </div>
-      ))
-    ) : (
-      <p>No recent services</p>
-    )}
-  </div>
-</div>
-
-        <div className="earnings-section">
-          <h3>Earnings Overview</h3>
-          <div className="earnings-stats">
-            <div className="stat-card">
-              <h4>Today's Earnings</h4>
-              <p>₹{earningsData?.todayEarnings ?? 0}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Weekly Earnings</h4>
-              <p>₹{earningsData?.weeklyEarnings ?? 0}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Services This Week</h4>
-              <p>{earningsData?.recentServices?.length}</p>
+          <div className="dashboard-section service-history">
+            <h3>Recent Services</h3>
+            <div className="history-list">
+              {earningsData?.recentServices?.length > 0 ? (
+                earningsData.recentServices.map((service) => (
+                  <div key={service._id} className="history-card">
+                    <div className="history-header">
+                      <span className="service-icon">
+                        {ServiceTypeIcons[service.mechanicalType] || "🔧"}
+                      </span>
+                      <span className="service-date">
+                        {new Date(service.date).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <p className="service-type">
+                      {service.mechanicalType
+                        ? service.mechanicalType.charAt(0).toUpperCase() +
+                          service.mechanicalType.slice(1)
+                        : "Service"}
+                    </p>
+                    <p>Location: {addressMap[service._id] || "unknown"}</p>
+                    <p>Earnings: ₹{service.payment?.amount ?? 0}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No recent services</p>
+              )}
             </div>
           </div>
         </div>

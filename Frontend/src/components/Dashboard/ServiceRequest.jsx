@@ -343,7 +343,8 @@ const ServiceRequest = ({ userLocation, userId, onServiceCreated, initialService
         {serviceType === 'mechanical' && (
           <div className="form-group">
             <label htmlFor="images">Upload Images (Optional)</label>
-            <div className="image-upload-container">
+            <label htmlFor="images" className="btn btn-advanced upload-button">
+              Upload Images
               <input
                 type="file"
                 id="images"
@@ -353,25 +354,26 @@ const ServiceRequest = ({ userLocation, userId, onServiceCreated, initialService
                   const files = Array.from(e.target.files);
                   setImages(prev => [...prev, ...files].slice(0, 3)); // Limit to 3 images
                 }}
+                style={{ display: 'none' }} // Visually hide the input
               />
-              {images.length > 0 && (
-                <div className="image-preview">
-                  {images.map((image, index) => (
-                    <div key={index} className="preview-item">
-                      <img src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
-                      <button
-                        type="button"
-                        className="remove-image"
-                        onClick={() => setImages(images.filter((_, i) => i !== index))}
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-              <small>Up to 3 images, showing vehicle issue</small>
-            </div>
+            </label>
+            {images.length > 0 && (
+              <div className="image-preview">
+                {images.map((image, index) => (
+                  <div key={index} className="preview-item">
+                    <img src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
+                    <button
+                      type="button"
+                      className="remove-image"
+                      onClick={() => setImages(images.filter((_, i) => i !== index))}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+            <small className="upload-hint">Up to 3 images, showing vehicle issue</small>
           </div>
         )}
         <button 

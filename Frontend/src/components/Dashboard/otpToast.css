@@ -3,11 +3,11 @@
   position: fixed;
   bottom: 32px;
   right: 32px;
-  background: #222;
-  color: #fff;
+  background: var(--glass-bg); /* Use glassmorphism background */
+  color: var(--text); /* Use theme text color */
   padding: 20px 32px;
   border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 20px var(--glass-shadow); /* Use theme shadow */
   z-index: 9999;
   font-size: 1.2rem;
   display: flex;
@@ -15,29 +15,40 @@
   align-items: flex-start;
   min-width: 260px;
   animation: otp-toast-in 0.3s;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .otp-toast .otp-code {
   font-size: 2rem;
   font-weight: bold;
   letter-spacing: 0.2em;
   margin: 8px 0 12px 0;
-  color: #ffd600;
+  color: var(--neon-glow-secondary); /* Use neon glow color */
+  text-shadow: 0 0 10px var(--neon-glow-secondary); /* Add glow */
 }
 .otp-toast .close-btn {
   background: none;
   border: none;
-  color: #fff;
+  color: var(--muted); /* Use theme muted color */
   font-size: 1.1rem;
   margin-top: 8px;
   cursor: pointer;
   align-self: flex-end;
   opacity: 0.7;
-  transition: opacity 0.2s;
+  transition: all 0.2s ease;
 }
 .otp-toast .close-btn:hover {
   opacity: 1;
+  color: var(--text); /* Use theme text color on hover */
 }
 @keyframes otp-toast-in {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

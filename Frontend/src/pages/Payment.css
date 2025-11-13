@@ -4,19 +4,48 @@
   margin: 24px auto;
   padding: 16px;
   font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  color: var(--text); /* Use theme text color */
+  position: relative;
+  z-index: 1;
+}
+.payment-page h2 {
+  margin-bottom: 12px;
+  color: var(--neon-glow-primary); /* Use neon glow color */
+  text-shadow: 0 0 8px var(--neon-glow-primary);
 }
 .payment-card {
-  border: 1px solid #e6e6e6;
+  border: 1px solid var(--glass-border); /* Use theme border */
   border-radius: 8px;
   padding: 16px;
-  background: #fff;
-  color: black;
+  background: var(--glass-bg); /* Use glassmorphism background */
+  color: var(--text); /* Use theme text color */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px var(--glass-shadow);
+  transition: all 0.3s ease;
 }
-.payment-card p { margin: 8px 0; }
-.payment-card .amount { font-weight: 700; font-size: 1.2rem; margin-top: 12px; }
-.actions { margin-top: 16px; }
-.btn { padding: 8px 14px; border-radius: 6px; cursor: pointer; border: none; }
-.btn-primary { background: #1976d2; color: white; }
-.error { color: #cc0000; margin-bottom: 12px; }
-
-.payment-page h2 { margin-bottom: 12px; }
+.payment-card:hover {
+  box-shadow: 0 6px 25px 0 var(--glass-shadow), 0 0 15px var(--neon-glow-secondary);
+}
+.payment-card p {
+  margin: 8px 0;
+}
+.payment-card .amount {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-top: 12px;
+  color: var(--neon-glow-secondary); /* Use neon glow color */
+  text-shadow: 0 0 8px var(--neon-glow-secondary);
+}
+.actions {
+  margin-top: 16px;
+}
+/* Rely on global .btn and .btn-primary for styling */
+.error {
+  color: #ef5350; /* Consistent error color */
+  margin-bottom: 12px;
+  background-color: rgba(220, 53, 69, 0.2);
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}

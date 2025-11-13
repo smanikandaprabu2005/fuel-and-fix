@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import AnimatedBackground from '../common/AnimatedBackground'; // Import the AnimatedBackground component
 import './Auth.css';
 
 const Register = () => {
@@ -41,6 +42,7 @@ const Register = () => {
 
   return (
     <div className="auth-wrapper">
+      <AnimatedBackground /> {/* Add the AnimatedBackground component here */}
       <div className="auth-container">
         <h2>Create an Account</h2>
         {error && <div className="error-message">{error}</div>}
