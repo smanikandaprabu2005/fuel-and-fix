@@ -1,14 +1,19 @@
 .service-notification {
-  background: white;
+  background: var(--glass-bg); /* Use glassmorphism background */
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px var(--glass-shadow); /* Use theme shadow */
   padding: 15px;
   margin: 10px 0;
   transition: transform 0.2s;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text);
 }
 
 .service-notification:hover {
   transform: translateY(-2px);
+  box-shadow: 0 4px 15px 0 var(--glass-shadow), 0 0 10px var(--neon-glow-primary);
 }
 
 .notification-header {
@@ -20,10 +25,12 @@
 
 .service-icon {
   font-size: 24px;
+  color: var(--neon-glow-primary); /* Use neon glow color */
+  text-shadow: 0 0 5px var(--neon-glow-primary);
 }
 
 .service-time {
-  color: #666;
+  color: var(--muted); /* Use theme muted color */
   font-size: 0.9em;
 }
 
@@ -34,15 +41,17 @@
 .service-type {
   font-weight: bold;
   margin: 5px 0;
+  color: var(--neon-glow-secondary); /* Use neon glow color */
+  text-shadow: 0 0 5px var(--neon-glow-secondary);
 }
 
 .service-location {
-  color: #444;
+  color: var(--muted); /* Use theme muted color */
   margin: 5px 0;
 }
 
 .service-notes {
-  color: #666;
+  color: var(--muted); /* Use theme muted color */
   font-style: italic;
   margin: 5px 0;
 }
@@ -53,30 +62,35 @@
   margin-top: 10px;
 }
 
-.accept-btn, .reject-btn {
+.accept-btn,
+.reject-btn {
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
   flex: 1;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  color: var(--dark-gradient-end); /* Dark text on glowing buttons */
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
 }
 
 .accept-btn {
-  background-color: #4CAF50;
-  color: white;
+  background: linear-gradient(90deg, #4CAF50, #66bb6a); /* Green gradient */
 }
 
 .accept-btn:hover {
-  background-color: #45a049;
+  background: linear-gradient(90deg, #45a049, #81c784);
+  box-shadow: 0 0 15px #4CAF50;
+  transform: translateY(-1px);
 }
 
 .reject-btn {
-  background-color: #f44336;
-  color: white;
+  background: linear-gradient(90deg, #f44336, #ef5350); /* Red gradient */
 }
 
 .reject-btn:hover {
-  background-color: #da190b;
+  background: linear-gradient(90deg, #da190b, #e57373);
+  box-shadow: 0 0 15px #f44336;
+  transform: translateY(-1px);
 }

@@ -1,3 +1,26 @@
-.admin-analytics { color: #eaf4ff; max-width:1200px; margin: 8px auto; padding: 8px; }
-.admin-analytics h2 { color: #dbeeff; }
-.admin-analytics .chart-card { background: rgba(255,255,255,0.95); border-radius:8px; padding:12px; }
+.admin-analytics {
+  color: var(--text); /* Use theme text color */
+  max-width: 1200px;
+  margin: 8px auto;
+  padding: 8px;
+  position: relative;
+  z-index: 1;
+}
+.admin-analytics h2 {
+  color: var(--neon-glow-primary); /* Use neon glow color */
+  text-shadow: 0 0 8px var(--neon-glow-primary);
+}
+.admin-analytics .chart-card {
+  background: var(--glass-bg); /* Use glassmorphism background */
+  border-radius: 8px;
+  padding: 12px;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px var(--glass-shadow);
+  transition: all 0.3s ease;
+}
+
+.admin-analytics .chart-card:hover {
+  box-shadow: 0 6px 25px 0 var(--glass-shadow), 0 0 15px var(--neon-glow-secondary);
+}

@@ -4,19 +4,28 @@
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background-color: #051019;
+  /* Background handled by ThemeWrapper, remove redundant background here */
+  position: relative;
+  z-index: 1;
 }
 
 .auth-container {
   width: 100%;
   max-width: 440px;
-  background: linear-gradient(180deg, rgba(11,18,36,0.8), rgba(7,16,24,0.7));
+  background: var(--glass-bg); /* Use glassmorphism background */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   padding: 32px;
   border-radius: 12px;
-  color: #e9f5ff;
-  box-shadow: 0 8px 32px rgba(2,6,23,0.6);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text); /* Use theme text color */
+  box-shadow: 0 8px 32px var(--glass-shadow); /* Use theme shadow */
+  border: 1px solid var(--glass-border); /* Use theme border */
   margin-bottom: 150px;
+  transition: all 0.3s ease;
+}
+
+.auth-container:hover {
+  box-shadow: 0 12px 48px 0 var(--glass-shadow), 0 0 20px var(--neon-glow-secondary);
 }
 
 .auth-container h2 {
@@ -24,7 +33,8 @@
   margin-bottom: 24px;
   text-align: center;
   font-size: 1.75rem;
-  color: #fff;
+  color: var(--text); /* Use theme text color */
+  text-shadow: 0 0 8px var(--neon-glow-primary); /* Add glow */
 }
 
 .auth-container .form-group {
@@ -34,51 +44,42 @@
 .auth-container label {
   display: block;
   margin-bottom: 8px;
-  color: #90caf9;
+  color: var(--neon-glow-primary); /* Use neon glow color for labels */
   font-size: 0.9rem;
+  text-shadow: 0 0 3px var(--neon-glow-primary);
 }
 
 .auth-container input {
   width: 100%;
   padding: 12px;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(7,20,40,0.95);
-  color: #dbeeff;
+  border: 1px solid var(--glass-border); /* Use theme border */
+  background: rgba(7, 20, 40, 0.7); /* Slightly darker glass background for input */
+  color: var(--text); /* Use theme text color */
   font-size: 1rem;
   transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 }
 
 .auth-container input:focus {
   outline: none;
-  border-color: #0b74de;
-  box-shadow: 0 0 0 2px rgba(11,116,222,0.2);
+  border-color: var(--neon-glow-primary); /* Neon glow on focus */
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.3), 0 0 10px var(--neon-glow-primary);
 }
 
 .auth-container .error-message {
   color: #ff4d4f;
   margin-bottom: 16px;
   padding: 8px 12px;
-  background: rgba(255,77,79,0.1);
+  background: rgba(255, 77, 79, 0.1);
   border-radius: 6px;
   font-size: 0.9rem;
+  border: 1px solid rgba(255, 77, 79, 0.3);
 }
 
+/* Rely on global .btn-primary for styling */
 .auth-container .btn-primary {
   width: 100%;
-  background: #0b74de;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.auth-container .btn-primary:hover {
-  background: #0a68c9;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(11,116,222,0.3);
+  /* Specific overrides if needed, otherwise global styles apply */
 }

@@ -7,6 +7,7 @@ import DashboardHeader from '../common/DashboardHeader';
 import AdminAnalytics from '../../Admin/AdminAnalytics';
 import PricingEditor from '../../Admin/PricingEditor';
 import './AdminDashboard.css';
+import AdminAnimatedBackground from '../../common/AdminAnimatedBackground';
 
 const AdminDashboard = () => {
   const { currentUser } = useAuth();
@@ -228,291 +229,296 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard admin-dashboard">
+      <AdminAnimatedBackground />
       <DashboardHeader title="Admin Dashboard" role="admin" />
 
-      <div className="tabs">
-        <button 
-          className={`tab ${activeTab === 'dashboard' ? 'active' : ''}`}
-          onClick={() => setActiveTab('dashboard')}
-        >
-          Dashboard
-        </button>
-        <button 
-          className={`tab ${activeTab === 'users' ? 'active' : ''}`}
-          onClick={() => setActiveTab('users')}
-        >
-          Users
-        </button>
-        <button 
-          className={`tab ${activeTab === 'providers' ? 'active' : ''}`}
-          onClick={() => setActiveTab('providers')}
-        >
-          Add Provider
-        </button>
-        <button 
-          className={`tab ${activeTab === 'pricing' ? 'active' : ''}`}
-          onClick={() => setActiveTab('pricing')}
-        >
-          Edit Price
-        </button>
-      </div>
-
-      {activeTab === 'dashboard' && (
-        <div className="dashboard-content">
-          <div className="stats-row">
-            <div className="stat-card">
-              <h4>Total Users</h4>
-              <p>{stats.users}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Total Mechanics</h4>
-              <p>{stats.mechanics}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Total Delivery Personnel</h4>
-              <p>{stats.deliveryPersons}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Active Service Requests</h4>
-              <p>{stats.activeRequests}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Completed Services</h4>
-              <p>{stats.completedRequests}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Total Earnings</h4>
-              <p>₹{stats.totalEarnings?.total || 0}</p>
-            </div>
-          </div>
-
-          {/* Show analytics chart below the stat cards on the dashboard page */}
-          <div style={{ width: '100%', marginTop: 18 }}>
-            <AdminAnalytics />
-          </div>
+      <div className="admin-main-layout">
+        <div className="tabs">
+          <button 
+            className={`tab ${activeTab === 'dashboard' ? 'active' : ''}`}
+            onClick={() => setActiveTab('dashboard')}
+          >
+            Dashboard
+          </button>
+          <button 
+            className={`tab ${activeTab === 'users' ? 'active' : ''}`}
+            onClick={() => setActiveTab('users')}
+          >
+            Users
+          </button>
+          <button 
+            className={`tab ${activeTab === 'providers' ? 'active' : ''}`}
+            onClick={() => setActiveTab('providers')}
+          >
+            Add Provider
+          </button>
+          <button 
+            className={`tab ${activeTab === 'pricing' ? 'active' : ''}`}
+            onClick={() => setActiveTab('pricing')}
+          >
+            Edit Price
+          </button>
         </div>
-      )}
 
-      {activeTab === 'pricing' && (
-        <div className="pricing-section">
-          <h3>Edit Pricing</h3>
-          <PricingEditor />
-        </div>
-      )}
-
-      {activeTab === 'users' && (
-        <div className="users-section">
-          <div className="user-tabs">
-            <button 
-              className={`tab ${activeList === 'users' ? 'active' : ''}`}
-              onClick={() => setActiveList('users')}
-            >
-              Regular Users
-            </button>
-            <button 
-              className={`tab ${activeList === 'mechanics' ? 'active' : ''}`}
-              onClick={() => setActiveList('mechanics')}
-            >
-              Mechanics
-            </button>
-            <button 
-              className={`tab ${activeList === 'delivery' ? 'active' : ''}`}
-              onClick={() => setActiveList('delivery')}
-            >
-              Delivery Personnel
-            </button>
-          </div>
-
-          {activeList === 'users' && (
-            <>
-              <h3>User Management</h3>
-              <table className="users-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {users.map(user => (
-                    <tr key={user._id}>
-                      <td>{user.name}</td>
-                      <td>{user.email}</td>
-                      <td>{user.phone}</td>
-                      <td>
-                        <div className="btn-group">
-                          <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => handleDelete(user._id)}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          )}
-
-          {activeList === 'mechanics' && (
-            <>
-              <h3>Mechanics Management</h3>
-              <table className="users-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Specialties</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {mechanics.map(mechanic => (
-                    <tr key={mechanic.user}>
-                      <td>{mechanic.name}</td>
-                      <td>{mechanic.email}</td>
-                      <td>{mechanic.phone}</td>
-                      <td>{mechanic.specialties?.join(', ') || 'None'}</td>
-                      <td>{mechanic.available ? 'Available' : 'Busy'}</td>
-                      <td>
-                        <div className="btn-group">
-                          <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => {
-                              console.log('Deleting mechanic:', mechanic);
-                              // Use the associated user ID for deletion
-                              handleDelete(mechanic.user, 'mechanic');
-                            }}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          )}
-
-          {activeList === 'delivery' && (
-            <>
-              <h3>Delivery Personnel Management</h3>
-              <table className="users-table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Vehicle Type</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {delivery.map(person => (
-                    <tr key={person._id}>
-                      <td>{person.name}</td>
-                      <td>{person.email}</td>
-                      <td>{person.phone}</td>
-                      <td>{person.vehicleType}</td>
-                      <td>{person.available ? 'Available' : 'Busy'}</td>
-                      <td>
-                        <div className="btn-group">
-                          <button
-                            className="btn btn-sm btn-danger"
-                            onClick={() => handleDelete(person._id, 'delivery')}
-                          >
-                            Delete
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </>
-          )}
-          <div className="pagination">
-            {[...Array(totalPages)].map((_, i) => (
-              <button
-                key={i + 1}
-                className={page === i + 1 ? 'active' : ''}
-                onClick={() => setPage(i + 1)}
-              >
-                {i + 1}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'providers' && (
-        <div className="provider-section">
-          <h3>Add New Service Provider</h3>
-          <form className="provider-form" onSubmit={handleCreateProvider}>
-            <div className="form-group">
-              <label>Name</label>
-              <input
-                type="text"
-                value={newProvider.name}
-                onChange={(e) => setNewProvider({ ...newProvider, name: e.target.value })}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                value={newProvider.email}
-                onChange={(e) => setNewProvider({ ...newProvider, email: e.target.value })}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Phone</label>
-              <input
-                type="tel"
-                value={newProvider.phone}
-                onChange={(e) => setNewProvider({ ...newProvider, phone: e.target.value })}
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Role</label>
-              <select
-                value={newProvider.role}
-                onChange={(e) => setNewProvider({ ...newProvider, role: e.target.value })}
-              >
-                <option value="mechanic">Mechanic</option>
-                <option value="delivery">Delivery Person</option>
-              </select>
-            </div>
-            {newProvider.role === 'delivery' && (
-              <div className="form-group">
-                <label>Vehicle Type</label>
-                <select
-                  value={newProvider.vehicleType}
-                  onChange={(e) => setNewProvider({ ...newProvider, vehicleType: e.target.value })}
-                >
-                  <option value="motorcycle">Motorcycle</option>
-                  <option value="car">Car</option>
-                  <option value="truck">Truck</option>
-                </select>
+        <div className="admin-content-area">
+          {activeTab === 'dashboard' && (
+            <div className="dashboard-content">
+              <div className="stats-row">
+                <div className="stat-card">
+                  <h4>Total Users</h4>
+                  <p>{stats.users}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Total Mechanics</h4>
+                  <p>{stats.mechanics}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Total Delivery Personnel</h4>
+                  <p>{stats.deliveryPersons}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Active Service Requests</h4>
+                  <p>{stats.activeRequests}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Completed Services</h4>
+                  <p>{stats.completedRequests}</p>
+                </div>
+                <div className="stat-card">
+                  <h4>Total Earnings</h4>
+                  <p>₹{stats.totalEarnings?.total || 0}</p>
+                </div>
               </div>
-            )}
-            <button type="submit" className="btn btn-primary">
-              Create Provider
-            </button>
-          </form>
+
+              {/* Show analytics chart below the stat cards on the dashboard page */}
+              <div style={{ width: '100%', marginTop: 18 }}>
+                <AdminAnalytics />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'pricing' && (
+            <div className="pricing-section">
+              <h3>Edit Pricing</h3>
+              <PricingEditor />
+            </div>
+          )}
+
+          {activeTab === 'users' && (
+            <div className="users-section">
+              <div className="user-tabs">
+                <button 
+                  className={`tab ${activeList === 'users' ? 'active' : ''}`}
+                  onClick={() => setActiveList('users')}
+                >
+                  Regular Users
+                </button>
+                <button 
+                  className={`tab ${activeList === 'mechanics' ? 'active' : ''}`}
+                  onClick={() => setActiveList('mechanics')}
+                >
+                  Mechanics
+                </button>
+                <button 
+                  className={`tab ${activeList === 'delivery' ? 'active' : ''}`}
+                  onClick={() => setActiveList('delivery')}
+                >
+                  Delivery Personnel
+                </button>
+              </div>
+
+              {activeList === 'users' && (
+                <>
+                  <h3>User Management</h3>
+                  <table className="users-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {users.map(user => (
+                        <tr key={user._id}>
+                          <td>{user.name}</td>
+                          <td>{user.email}</td>
+                          <td>{user.phone}</td>
+                          <td>
+                            <div className="btn-group">
+                              <button
+                                className="btn btn-sm btn-danger"
+                                onClick={() => handleDelete(user._id)}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
+
+              {activeList === 'mechanics' && (
+                <>
+                  <h3>Mechanics Management</h3>
+                  <table className="users-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Specialties</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {mechanics.map(mechanic => (
+                        <tr key={mechanic.user}>
+                          <td>{mechanic.name}</td>
+                          <td>{mechanic.email}</td>
+                          <td>{mechanic.phone}</td>
+                          <td>{mechanic.specialties?.join(', ') || 'None'}</td>
+                          <td>{mechanic.available ? 'Available' : 'Busy'}</td>
+                          <td>
+                            <div className="btn-group">
+                              <button
+                                className="btn btn-sm btn-danger"
+                                onClick={() => {
+                                  console.log('Deleting mechanic:', mechanic);
+                                  // Use the associated user ID for deletion
+                                  handleDelete(mechanic.user, 'mechanic');
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
+
+              {activeList === 'delivery' && (
+                <>
+                  <h3>Delivery Personnel Management</h3>
+                  <table className="users-table">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Vehicle Type</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {delivery.map(person => (
+                        <tr key={person._id}>
+                          <td>{person.name}</td>
+                          <td>{person.email}</td>
+                          <td>{person.phone}</td>
+                          <td>{person.vehicleType}</td>
+                          <td>{person.available ? 'Available' : 'Busy'}</td>
+                          <td>
+                            <div className="btn-group">
+                              <button
+                                className="btn btn-sm btn-danger"
+                                onClick={() => handleDelete(person._id, 'delivery')}
+                              >
+                                Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </>
+              )}
+              <div className="pagination">
+                {[...Array(totalPages)].map((_, i) => (
+                  <button
+                    key={i + 1}
+                    className={page === i + 1 ? 'active' : ''}
+                    onClick={() => setPage(i + 1)}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'providers' && (
+            <div className="provider-section">
+              <h3>Add New Service Provider</h3>
+              <form className="provider-form" onSubmit={handleCreateProvider}>
+                <div className="form-group">
+                  <label>Name</label>
+                  <input
+                    type="text"
+                    value={newProvider.name}
+                    onChange={(e) => setNewProvider({ ...newProvider, name: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Email</label>
+                  <input
+                    type="email"
+                    value={newProvider.email}
+                    onChange={(e) => setNewProvider({ ...newProvider, email: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Phone</label>
+                  <input
+                    type="tel"
+                    value={newProvider.phone}
+                    onChange={(e) => setNewProvider({ ...newProvider, phone: e.target.value })}
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Role</label>
+                  <select
+                    value={newProvider.role}
+                    onChange={(e) => setNewProvider({ ...newProvider, role: e.target.value })}
+                  >
+                    <option value="mechanic">Mechanic</option>
+                    <option value="delivery">Delivery Person</option>
+                  </select>
+                </div>
+                {newProvider.role === 'delivery' && (
+                  <div className="form-group">
+                    <label>Vehicle Type</label>
+                    <select
+                      value={newProvider.vehicleType}
+                      onChange={(e) => setNewProvider({ ...newProvider, vehicleType: e.target.value })}
+                    >
+                      <option value="motorcycle">Motorcycle</option>
+                      <option value="car">Car</option>
+                      <option value="truck">Truck</option>
+                    </select>
+                  </div>
+                )}
+                <button type="submit" className="btn btn-primary">
+                  Create Provider
+                </button>
+              </form>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 };

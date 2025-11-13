@@ -1,16 +1,23 @@
 .service-request-container {
-  background: rgba(13, 23, 33, 0.7);
+  background: var(--glass-bg); /* Use glassmorphism background */
   padding: 24px;
   border-radius: 8px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  margin: 40px 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px var(--glass-shadow); /* Use theme shadow */
+  margin: 40px auto; /* Center the container */
+  max-width: 700px; /* Limit width for better readability */
+  border: 1px solid var(--glass-border); /* Use theme border */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
 }
 
 .service-request-container h2 {
-  color: #ecf7ff;
+  color: var(--neon-glow-primary); /* Use neon glow color */
   margin-bottom: 24px;
   font-weight: 500;
+  text-shadow: 0 0 8px var(--neon-glow-primary);
+  text-align: center; /* Center the heading */
 }
 
 .form-group {
@@ -21,8 +28,10 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #90caf9;
+  color: var(--neon-glow-primary); /* Use neon glow color for labels */
   font-size: 0.9rem;
+  text-shadow: 0 0 3px var(--neon-glow-primary);
+  text-align: center; /* Center all form group labels */
 }
 
 .form-group select,
@@ -30,45 +39,58 @@
 .form-group textarea {
   width: 100%;
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--glass-border); /* Use theme border */
   border-radius: 6px;
-  background-color: rgba(15, 28, 41, 0.95);
+  background: rgba(7, 20, 40, 0.7); /* Slightly darker glass background for input */
   font-size: 14px;
-  color: #ffffff;
+  color: var(--text); /* Use theme text color */
   transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); /* Subtle inset shadow for depth */
+  -webkit-appearance: none; /* Remove default browser styling for select */
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2300ffff%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-6.5%200-12.3%203.2-16.1%208.1-3.8%204.9-4.6%2011-2.4%2017.4l130.6%20170.9c3.8%205%209.7%207.6%2015.9%207.6s12.1-2.6%2015.9-7.6L289.4%2094c2.2-6.4%201.4-12.5-2.4-17.4z%22%2F%3E%3C%2Fsvg%3E'); /* Custom SVG arrow */
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 30px; /* Make space for the arrow */
 }
 
 .form-group select:focus,
 .form-group input[type="number"]:focus,
 .form-group textarea:focus {
-  border-color: rgb(0, 128, 164);
-  box-shadow: 0 0 0 2px rgba(0, 128, 164, 0.2);
+  border-color: var(--neon-glow-primary); /* Neon glow on focus */
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.3), 0 0 15px var(--neon-glow-primary), 0 0 25px var(--neon-glow-secondary); /* Enhanced focus glow */
   outline: none;
 }
 
 .form-group textarea {
-  min-height: 120px;
+  min-height: 80px; /* More compact height */
   resize: vertical;
+  max-width: 90%; /* Limit width to make it compact */
+  margin: 0 auto; /* Center the textarea */
+  display: block; /* Ensure it behaves as a block element for margin auto */
 }
 
-.image-upload-container {
-  border: 2px dashed rgba(0, 128, 164, 0.4);
-  padding: 24px;
-  border-radius: 8px;
-  text-align: center;
-  margin-top: 12px;
-  background: rgba(0, 128, 164, 0.1);
-  transition: all 0.2s ease;
+/* Styles for the new upload button */
+.upload-button {
+  display: block; /* Make it a block element to apply margin auto */
+  margin: 12px auto 15px auto; /* Center the button and add vertical spacing */
+  width: fit-content; /* Adjust width to content */
+  text-align: center; /* Center text inside the button */
 }
 
-.image-upload-container:hover {
-  border-color: rgb(0, 128, 164);
-  background: rgba(0, 128, 164, 0.15);
+.upload-hint {
+  display: block; /* Make it a block element */
+  text-align: center; /* Center the text */
+  margin-top: 5px; /* Add some space from the image preview */
+  color: var(--muted); /* Use muted color for hint text */
+  font-size: 0.85rem;
 }
 
-.image-upload-container input[type="file"] {
-  margin-bottom: 10px;
-}
+/* The input type="file" is now hidden via inline style in JSX */
 
 .image-preview {
   display: grid;
@@ -82,6 +104,8 @@
   padding-bottom: 100%;
   overflow: hidden;
   border-radius: 4px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 2px 10px var(--glass-shadow);
 }
 
 .preview-item img {
@@ -97,7 +121,7 @@
   position: absolute;
   top: 5px;
   right: 5px;
-  background-color: rgba(255, 0, 0, 0.7);
+  background-color: var(--neon-glow-red); /* Use neon red variable */
   color: white;
   border: none;
   border-radius: 50%;
@@ -109,50 +133,32 @@
   cursor: pointer;
   font-size: 16px;
   line-height: 1;
+  transition: background-color 0.2s ease;
 }
 
 .remove-image:hover {
-  background-color: rgba(255, 0, 0, 0.9);
+  background-color: var(--neon-glow-red-dark); /* Use darker neon red variable */
 }
 
 .success-message {
-  background-color: rgba(46, 125, 50, 0.2);
+  background-color: rgba(40, 167, 69, 0.2); /* Greenish background */
   color: #81c784;
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 16px;
-  border: 1px solid rgba(46, 125, 50, 0.3);
+  border: 1px solid rgba(40, 167, 69, 0.3);
 }
 
 .error-message {
-  background-color: rgba(211, 47, 47, 0.2);
-  color: #ef5350;
+  background-color: hsla(345, 100%, 47%, 0.2); /* Use a neon-red derived HSL for background */
+  color: var(--neon-glow-red); /* Use neon red variable for text */
   padding: 12px;
   border-radius: 6px;
   margin-bottom: 16px;
-  border: 1px solid rgba(211, 47, 47, 0.3);
+  border: 1px solid hsla(345, 100%, 47%, 0.3); /* Use a neon-red derived HSL for border */
 }
 
+/* Rely on global .btn and .btn-primary for styling */
 .btn {
-  width: 100%;
-  background: rgb(0, 128, 164);
-  color: white;
-  border: none;
-  padding: 12px 24px;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn:hover:not(:disabled) {
-  background: rgb(0, 144, 180);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 128, 164, 0.3);
-}
-
-.btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
+  /* Handled by global theme.css */
 }

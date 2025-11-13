@@ -1,66 +1,89 @@
+.auth-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Ensure no scrollbars from background */
+}
+
 .auth-container {
-  max-width: 420px;
-  margin: 48px auto;
-  padding: 24px;
+  position: relative; /* Needed for z-index to work correctly */
+  z-index: 1; /* Ensure it's above the animated background */
+  max-width: 440px; /* Consistent with Login.css */
+  margin: 0; /* Remove margin as flexbox will center it */
+  padding: 32px; /* Consistent with Login.css */
   border-radius: 12px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.03);
+  background: var(--glass-bg); /* Use glassmorphism background */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  color: var(--text);
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+
+.auth-container:hover {
+  box-shadow: 0 12px 48px 0 var(--glass-shadow), 0 0 20px var(--neon-glow-secondary);
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px; /* Consistent with Login.css */
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 8px; /* Consistent with Login.css */
   font-weight: 500;
+  color: var(--neon-glow-primary); /* Use neon glow color for labels */
+  text-shadow: 0 0 3px var(--neon-glow-primary);
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid rgba(255,255,255,0.04);
+  padding: 12px; /* Consistent with Login.css */
+  border: 1px solid var(--glass-border); /* Use theme border */
   border-radius: 8px;
-  background: transparent;
+  background: rgba(7, 20, 40, 0.7); /* Slightly darker glass background for input */
   color: var(--text);
+  transition: all 0.2s ease;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--neon-glow-primary); /* Neon glow on focus */
+  box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.3), 0 0 10px var(--neon-glow-primary);
 }
 
 .error-message {
-  color: #dc3545;
-  padding: 10px;
-  margin-bottom: 15px;
-  border-radius: 4px;
-  background-color: #ffe6e6;
-}
-
-.error-message {
-  color: var(--danger, #e53935);
+  color: #ff4d4f; /* Keep original error color for severity */
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 6px;
-  background: rgba(229,57,53,0.08);
+  background: rgba(255, 77, 79, 0.15); /* Slightly more prominent background */
+  border: 1px solid rgba(255, 77, 79, 0.3);
 }
+
 .success-message {
-  color: #43a047;
+  color: #43a047; /* Keep original success color */
   padding: 10px;
   margin-bottom: 15px;
   border-radius: 6px;
-  background: rgba(67,160,71,0.06);
+  background: rgba(67, 160, 71, 0.15); /* Slightly more prominent background */
+  border: 1px solid rgba(67, 160, 71, 0.3);
 }
 
+/* Rely on global .btn and .btn-primary for styling */
 .btn {
   width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 600;
-  border: none;
+  /* Specific overrides if needed, otherwise global styles apply */
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--primary, #1976d2), #43a047);
-  color: white;
+  /* Specific overrides if needed, otherwise global styles apply */
 }

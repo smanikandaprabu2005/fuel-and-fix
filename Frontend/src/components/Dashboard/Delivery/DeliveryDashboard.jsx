@@ -17,6 +17,7 @@ import ServiceTracking from '../ServiceTracking';
 import DashboardHeader from '../common/DashboardHeader';
 import './DeliveryDashboard.css';
 import useBlockUnloadOnActiveRequest from '../../../hooks/useBlockUnloadOnActiveRequest';
+import DeliveryAnimatedBackground from '../../common/DeliveryAnimatedBackground';
 
 const DeliveryDashboard = ({ providerId }) => {
   const { currentUser } = useAuth();
@@ -309,102 +310,130 @@ const DeliveryDashboard = ({ providerId }) => {
 
   return (
     <div className="dashboard delivery-dashboard">
+      <DeliveryAnimatedBackground />
       <DashboardHeader title={currentUser?.name || 'Fuel Delivery'} role="delivery" />
       <div className="dashboard-content">
-        <div className="status-section">
-          <h3>Your Status</h3>
-          <div className="status-toggle">
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={isAvailable}
-                onChange={() => setIsAvailable(!isAvailable)}
-              />
-              <span className="slider round"></span>
-            </label>
-            <span className="status-text">
-              {isAvailable ? 'Available for Delivery' : 'Not Available'}
-            </span>
+        <div className="left-column">
+          <div className="dashboard-section">
+            <h3>Your Status</h3>
+            <div className="status-toggle">
+              <label className="switch">
+                <input
+                  type="checkbox"
+                  checked={isAvailable}
+                  onChange={() => setIsAvailable(!isAvailable)}
+                />
+                <span className="slider round"></span>
+              </label>
+              <span className="status-text">
+                {isAvailable ? 'Available' : 'Unavailable'}
+              </span>
+            </div>
           </div>
         </div>
-
-        {currentRequest ? (
-          <div className="current-request">
-            <h3>Current Delivery</h3>
-            <div className="request-details">
-              <div className="request-info">
-                <h4>Customer Details</h4>
-                <p>Location: {currentRequest.location?.address || '—'}</p>
-                <p>Fuel Type: {currentRequest.fuelDetails?.fuelType || 'N/A'}</p>
-                <p>Quantity: {currentRequest.fuelDetails && (currentRequest.fuelDetails.quantity !== undefined && currentRequest.fuelDetails.quantity !== null) ? `${currentRequest.fuelDetails.quantity}L` : '—'}</p>
-                <p>Status: {currentRequest.status}</p>
+        <div className="middle-column">
+          <div className="dashboard-section">
+            <h3>Earnings Overview</h3>
+            <div className="earnings-stats">
+              <div className="stat-card">
+                <h4>Today</h4>
+                <p>₹{earningsData?.todayEarnings || 0}</p>
               </div>
-              <div className="status-actions">
-                <button 
-                  className="btn btn-primary"
-                  onClick={() => handleStatusUpdate('on-way')}
-                  disabled={currentRequest.status !== 'accepted' || statusLoading}
-                >
-                  Start Delivery
-                </button>
-                <button 
-                  className="btn btn-primary"
-                  onClick={() => setOtpPopupOpen(true)}
-                  disabled={currentRequest.status !== 'on-way' || statusLoading}
-                >
-                  Arrived & Delivering
-                </button>
-                <button 
-                  className="btn btn-success"
-                  onClick={async () => {
-                    setStatusLoading(true);
-                    try {
-                      await handleStatusUpdate('completed');
-                      // After completing delivery, return provider to their dashboard (providers should not be sent to user payment page)
-                      setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
-                    } catch (e) {
-                      console.error(e);
-                    } finally {
-                      setStatusLoading(false);
-                    }
-                  }}
-                  disabled={currentRequest.status !== 'in-progress' || statusLoading}
-                >
-                  Complete Delivery
-                </button>
+              <div className="stat-card">
+                <h4>Weekly</h4>
+                <p>₹{earningsData?.weeklyEarnings || 0}</p>
               </div>
-              <div className="delivery-map">
-                {/* Map (ServiceTracking) sits directly below the action buttons */}
-                <ServiceTracking
-                  serviceRequest={currentRequest}
-                  userLocation={currentRequest.location ? ({
-                    lat: currentRequest.location.lat ?? currentRequest.location.coordinates?.[1],
-                    lng: currentRequest.location.lng ?? currentRequest.location.coordinates?.[0],
-                    address: currentRequest.location.address
-                  }) : null}
-                  providerLocation={currentLocation}
-                  role="delivery"
-                />
+              <div className="stat-card">
+                <h4>Services</h4>
+                <p>{earningsData?.recentServices?.length || 0}</p>
               </div>
             </div>
           </div>
-        ) : (
-          <div className="delivery-requests">
+          <div className="dashboard-section">
+            {currentRequest ? (
+              <>
+                <h3>Current Delivery</h3>
+                <div className="request-details">
+                  <div className="request-info">
+                    <h4>Customer Details</h4>
+                    <p>Location: {currentRequest.location?.address || '—'}</p>
+                    <p>Fuel Type: {currentRequest.fuelDetails?.fuelType || 'N/A'}</p>
+                    <p>Quantity: {currentRequest.fuelDetails && (currentRequest.fuelDetails.quantity !== undefined && currentRequest.fuelDetails.quantity !== null) ? `${currentRequest.fuelDetails.quantity}L` : '—'}</p>
+                    <p>Status: {currentRequest.status}</p>
+                  </div>
+                  <div className="status-actions">
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => handleStatusUpdate('on-way')}
+                      disabled={currentRequest.status !== 'accepted' || statusLoading}
+                    >
+                      Start Delivery
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() => setOtpPopupOpen(true)}
+                      disabled={currentRequest.status !== 'on-way' || statusLoading}
+                    >
+                      Arrived & Delivering
+                    </button>
+                    <button
+                      className="btn btn-success"
+                      onClick={async () => {
+                        setStatusLoading(true);
+                        try {
+                          await handleStatusUpdate('completed');
+                          // After completing delivery, return provider to their dashboard (providers should not be sent to user payment page)
+                          setTimeout(() => { window.location.href = '/dashboard'; }, 1000);
+                        } catch (e) {
+                          console.error(e);
+                        } finally {
+                          setStatusLoading(false);
+                        }
+                      }}
+                      disabled={currentRequest.status !== 'in-progress' || statusLoading}
+                    >
+                      Complete Delivery
+                    </button>
+                  </div>
+                  <div className="delivery-map">
+                    <ServiceTracking
+                      serviceRequest={currentRequest}
+                      userLocation={currentRequest.location ? ({
+                        lat: currentRequest.location.lat ?? currentRequest.location.coordinates?.[1],
+                        lng: currentRequest.location.lng ?? currentRequest.location.coordinates?.[0],
+                        address: currentRequest.location.address
+                      }) : null}
+                      providerLocation={currentLocation}
+                      role="delivery"
+                    />
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="no-current-request">
+                <h3>No Active Delivery</h3>
+                <p>Accept a request from the 'Available Requests' list to begin a delivery.</p>
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="right-column">
+          <div className="dashboard-section">
             <h3>Available Requests</h3>
             <div className="request-list">
               {activeRequests.length > 0 ? (
                 activeRequests.map(request => (
                   <div key={request._id} className="request-card">
                     <div className="request-info">
-                        <p>Distance: {request.distance ? `${request.distance.toFixed(1)} km` : '—'}</p>
-                        <p>Fuel Type: {request.fuelDetails && request.fuelDetails.fuelType ? request.fuelDetails.fuelType : 'N/A'}</p>
-                        <p>Quantity: {request.fuelDetails && (request.fuelDetails.quantity !== undefined && request.fuelDetails.quantity !== null) ? `${request.fuelDetails.quantity}L` : '—'}</p>
+                      <p>Distance: {request.distance ? `${request.distance.toFixed(1)} km` : '—'}</p>
+                      <p>Fuel Type: {request.fuelDetails && request.fuelDetails.fuelType ? request.fuelDetails.fuelType : 'N/A'}</p>
+                      <p>Quantity: {request.fuelDetails && (request.fuelDetails.quantity !== undefined && request.fuelDetails.quantity !== null) ? `${request.fuelDetails.quantity}L` : '—'}</p>
                     </div>
                     <button
                       className="btn btn-primary"
                       onClick={() => handleAcceptRequest(request)}
                     >
-                      Accept Request
+                      Accept
                     </button>
                   </div>
                 ))
@@ -413,40 +442,19 @@ const DeliveryDashboard = ({ providerId }) => {
               )}
             </div>
           </div>
-        )}
-
-        <div className="delivery-history">
-          <h3>Recent Deliveries</h3>
-          <div className="history-list">
-            {earningsData?.recentServices?.length > 0 ? (
-              earningsData.recentServices.map(request => (
-                <div key={request._id} className="history-card">
-                  <p>Date: {new Date(request.completedAt || request.date).toLocaleDateString()}</p>
-                  <p>Fuel: {request.fuelDetails?.fuelType || 'N/A'} ({request.fuelDetails?.quantity ?? '—'}L)</p>
-                  <p>Location: {request.location?.address || '—'}</p>
-                  <p>Earnings: ₹{Number(request.payment?.amount || 0)}</p>
-                </div>
-              ))
-            ) : (
-              <p>No recent deliveries</p>
-            )}
-          </div>
-        </div>
-
-        <div className="earnings-section">
-          <h3>Earnings Overview</h3>
-          <div className="earnings-stats">
-            <div className="stat-card">
-              <h4>Today's Earnings</h4>
-              <p>₹{earningsData?.todayEarnings || 0}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Weekly Earnings</h4>
-              <p>₹{earningsData?.weeklyEarnings || 0}</p>
-            </div>
-            <div className="stat-card">
-              <h4>Services This Week</h4>
-              <p>{earningsData?.recentServices?.length|| 0}</p>
+          <div className="dashboard-section">
+            <h3>Recent Deliveries</h3>
+            <div className="history-list">
+              {earningsData?.recentServices?.length > 0 ? (
+                earningsData.recentServices.map(request => (
+                  <div key={request._id} className="history-card">
+                    <p>Date: {new Date(request.completedAt || request.date).toLocaleDateString()}</p>
+                    <p>Amount: ₹{Number(request.payment?.amount || 0)}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No recent deliveries</p>
+              )}
             </div>
           </div>
         </div>

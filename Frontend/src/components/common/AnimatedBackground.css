@@ -1,0 +1,126 @@
+.animated-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--dark-gradient-start), var(--dark-gradient-end));
+  z-index: -1;
+}
+
+.gradient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    hsla(207, 80%, 46%, 0.25) 0%, /* --primary: #1976d2 -> hsla(207, 80%, 46%, 0.25) */
+    hsla(27, 97%, 61%, 0.25) 25%, /* --accent: #fb923c -> hsla(27, 97%, 61%, 0.25) */
+    hsla(207, 80%, 46%, 0.25) 50%,
+    hsla(27, 97%, 61%, 0.25) 75%,
+    hsla(207, 80%, 46%, 0.25) 100%
+  );
+  background-size: 200% 200%;
+  animation: gradient-animation 12s ease infinite;
+  opacity: 0.8;
+  filter: blur(1.5px);
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.particle-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at top left,
+    hsla(180, 100%, 50%, 0.25) 0%, /* --neon-glow-primary: #00ffff -> hsla(180, 100%, 50%, 0.25) */
+    transparent 20%
+  ),
+  radial-gradient(
+    circle at bottom right,
+    hsla(27, 97%, 61%, 0.25) 0%, /* --accent: #fb923c -> hsla(27, 97%, 61%, 0.25) */
+    transparent 20%
+  );
+  background-size: 300% 300%;
+  animation: particle-animation 18s linear infinite;
+  opacity: 0.6;
+  filter: blur(0.8px);
+}
+
+@keyframes particle-animation {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* New: Abstract flowing lines/shapes */
+.animated-background::before,
+.animated-background::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  animation: flow-lines 20s infinite ease-in-out;
+  filter: blur(2px);
+}
+
+.animated-background::before {
+  width: 150px;
+  height: 150px;
+  top: 10%;
+  left: 15%;
+  background: hsla(180, 100%, 50%, 0.12); /* --neon-glow-primary: #00ffff -> hsla(180, 100%, 50%, 0.12) */
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation-delay: 0s;
+}
+
+.animated-background::after {
+  width: 200px;
+  height: 200px;
+  bottom: 10%;
+  right: 15%;
+  background: hsla(27, 97%, 61%, 0.12); /* --accent: #fb923c -> hsla(27, 97%, 61%, 0.12) */
+  transform: translate(50%, 50%) rotate(0deg);
+  animation-delay: 10s;
+}
+
+@keyframes flow-lines {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+    opacity: 0.12;
+  }
+  25% {
+    transform: translate(-40%, -60%) rotate(45deg) scale(1.1);
+    opacity: 0.18;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(90deg) scale(1);
+    opacity: 0.12;
+  }
+  75% {
+    transform: translate(-60%, -40%) rotate(135deg) scale(1.1);
+    opacity: 0.18;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1);
+    opacity: 0.12;
+  }
+}
