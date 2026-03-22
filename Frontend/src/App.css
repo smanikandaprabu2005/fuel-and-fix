@@ -1,4 +1,29 @@
-.app-container { min-height:100vh; background: linear-gradient(180deg, #061225, #07142a); color: #e9f7ff; font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; }
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #061225, #07142a);
+  color: #e9f7ff;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+/* Dashboard routes: show background image, content above it */
+.app-container--dashboard {
+  background: transparent;
+}
+
+.app-container--dashboard .dashboard-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.app-container--dashboard .app-content {
+  position: relative;
+  z-index: 1;
+}
 .btn { cursor:pointer; }
 .btn-primary { background:#0b74de; color:#fff; border:none; padding:8px 12px; border-radius:6px }
 .btn-secondary { background:transparent; color:#cfe6ff; border:1px solid rgba(255,255,255,0.04); padding:8px 12px; border-radius:6px }

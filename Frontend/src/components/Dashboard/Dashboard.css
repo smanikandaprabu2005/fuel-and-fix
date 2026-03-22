@@ -1,5 +1,29 @@
 .dashboard { padding:20px }
 
+/* User dashboard background - roadside scene (full viewport) */
+.user-dashboard {
+  position: relative;
+  min-height: 100vh;
+}
+
+.user-dashboard::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(6, 18, 37, 0.92) 0%,
+      rgba(7, 20, 42, 0.88) 50%,
+      rgba(6, 18, 37, 0.95) 100%
+    ),
+    url('/background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 .dashboard-content { margin-top:20px }
 
 .stats-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:20px; margin:20px 0 }

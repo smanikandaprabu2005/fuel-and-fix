@@ -1,3 +1,28 @@
-.admin-analytics { color: #eaf4ff; max-width:1200px; margin: 8px auto; padding: 8px; }
+.admin-analytics {
+  position: relative;
+  min-height: 100vh;
+  color: #eaf4ff;
+  max-width: 1200px;
+  margin: 8px auto;
+  padding: 8px;
+}
+
+.admin-analytics::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(6, 18, 37, 0.92) 0%,
+      rgba(7, 20, 42, 0.88) 50%,
+      rgba(6, 18, 37, 0.95) 100%
+    ),
+    url('/background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
 .admin-analytics h2 { color: #dbeeff; }
 .admin-analytics .chart-card { background: rgba(255,255,255,0.95); border-radius:8px; padding:12px; }

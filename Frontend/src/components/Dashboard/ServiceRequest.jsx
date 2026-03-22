@@ -370,6 +370,7 @@ const ServiceRequest = ({ userLocation, userId, onServiceCreated, initialService
                   ))}
                 </div>
               )}
+              <br />
               <small>Up to 3 images, showing vehicle issue</small>
             </div>
           </div>

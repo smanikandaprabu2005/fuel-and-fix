@@ -5,7 +5,7 @@ import './components/Auth/Auth.css';
 import './components/Admin/admin.css';
 import './components/Dashboard/Dashboard.css';
 import './components/Provider/provider.css';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
@@ -50,12 +50,25 @@ const ProviderRoute = ({ children }) => {
   return children;
 };
 
-function App() {
+const DASHBOARD_PATHS = ['/dashboard', '/admin', '/admin/pricing', '/admin/analytics', '/payment', '/provider-test'];
+
+function AppContent() {
+  const location = useLocation();
+  const isDashboardRoute = DASHBOARD_PATHS.some(p => location.pathname === p || location.pathname.startsWith(p + '/'));
+
   return (
-    <AuthProvider>
-      <Router>
-        <div className="app-container">
-          <Routes>
+    <div className={`app-container${isDashboardRoute ? ' app-container--dashboard' : ''}`}>
+      {isDashboardRoute && (
+        <div
+          className="dashboard-bg"
+          aria-hidden="true"
+          style={{
+            backgroundImage: `linear-gradient(180deg, rgba(6, 18, 37, 0.88) 0%, rgba(7, 20, 42, 0.85) 50%, rgba(6, 18, 37, 0.92) 100%), url('/image.png')`,
+          }}
+        />
+      )}
+      <div className="app-content">
+        <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/" element={<Landing />} />
@@ -105,9 +118,17 @@ function App() {
                 <ProviderTest />
               </ProviderRoute>
             } />
-            
-          </Routes>
-        </div>
+        </Routes>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <AppContent />
       </Router>
     </AuthProvider>
   );

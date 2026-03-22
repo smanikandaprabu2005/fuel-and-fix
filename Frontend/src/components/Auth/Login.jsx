@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import './Login.css';
+import './Auth.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import AuthBrand from './AuthBrand';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -51,38 +52,41 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-container">
-        <h2>Login to Your Account</h2>
-        {error && <div className="error-message">{error}</div>}
-        <form onSubmit={onSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={onChange}
-            required
-          />
+    <div className="auth-page">
+      <AuthBrand />
+      <div className="auth-main">
+        <div className="auth-form-card">
+          <h2>Sign In</h2>
+          {error && <div className="error-message">{error}</div>}
+          <form onSubmit={onSubmit}>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={onChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={onChange}
+                required
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">Sign In</button>
+          </form>
+          <p className="auth-switch">
+            Don&apos;t have an account? <Link to="/register">Register</Link>
+          </p>
         </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={onChange}
-            required
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">Login</button>
-      </form>
-      <p style={{ textAlign: 'center', marginTop: '20px', color: '#90caf9' }}>
-        Don't have an account? <Link to="/register" style={{ color: '#0b74de', textDecoration: 'none' }}>Register</Link>
-      </p>
       </div>
     </div>
   );

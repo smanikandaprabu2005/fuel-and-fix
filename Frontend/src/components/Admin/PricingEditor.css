@@ -1,3 +1,27 @@
-.pricing-editor { background: #071428; padding: 16px; border-radius: 8px; color: #dff3ff; }
+.pricing-editor {
+  position: relative;
+  min-height: 100vh;
+  padding: 16px;
+  border-radius: 8px;
+  color: #dff3ff;
+}
+
+.pricing-editor::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(6, 18, 37, 0.92) 0%,
+      rgba(7, 20, 42, 0.88) 50%,
+      rgba(6, 18, 37, 0.95) 100%
+    ),
+    url('/background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
 .pricing-editor .row { display:flex; gap:12px; margin-bottom:8px }
 .pricing-editor input, .pricing-editor select { margin-left:5px;padding:8px; border-radius:15px; border:1px solid rgba(24, 110, 185, 0.736); background:#0b1220; color:#e6eef8 }

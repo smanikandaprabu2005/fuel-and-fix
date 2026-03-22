@@ -1,14 +1,16 @@
+const dns = require('dns');
 const mongoose = require('mongoose');
 const config = require('./config');
 
+// Prefer IPv4 - can resolve "querySrv ECONNREFUSED" on some networks/Windows
+dns.setDefaultResultOrder('ipv4first');
+
 const connectDB = async () => {
   try {
-    console.log('Attempting to connect to MongoDB...', config.mongoURI);
-    
-    await mongoose.connect(config.mongoURI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const safeUri = config.mongoURI?.replace(/:[^:@]+@/, ':****@') || '(not set)';
+    console.log('Attempting to connect to MongoDB...', safeUri);
+
+    await mongoose.connect(config.mongoURI);
     
     console.log('MongoDB Connected Successfully');
     

@@ -494,7 +494,8 @@ app.get("/api/fuel-prices", async (req, res) => {
       return res.status(400).json({ error: "State and city are required" });
     }
 
-    const url = `https://daily-petrol-diesel-lpg-cng-fuel-prices-in-india.p.rapidapi.com/v1/fuel-prices/history/india/${state}/${city}`;
+    //const url = `https://daily-petrol-diesel-lpg-cng-fuel-prices-in-india.p.rapidapi.com/v1/fuel-prices/history/india/${state}/${city}`;
+    const url = `https://daily-petrol-diesel-lpg-cng-fuel-prices-in-india.p.rapidapi.com/v1/fuel-prices/history/india/maharashtra/mumbai`;
 
     const response = await fetch(url, {
       method: "GET",

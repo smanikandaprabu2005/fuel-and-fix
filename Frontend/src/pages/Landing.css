@@ -1,108 +1,587 @@
-.landing-hero {
+/* Fuel & Fix — design mockup: public/image.png as hero/footer art */
+
+.landing-page {
+  /* Reference palette */
+  --landing-navy: #0b0e14;
+  --landing-navy-mid: #101622;
+  --landing-orange: #f5a623;
+  --landing-blue: #0066ff;
+  --landing-blue-hover: #3385ff;
+  --landing-text-muted: rgba(226, 232, 240, 0.78);
+  --landing-white-soft: rgba(255, 255, 255, 0.92);
+
+  min-height: 100vh;
+  background: var(--landing-navy);
+  overflow-x: hidden;
+  color: #f8fafc;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.landing-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+}
+
+/* Exactly one viewport tall: hero image fills the screen, no extra height */
+.landing-hero-block {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+@supports (height: 100dvh) {
+  .landing-hero-block {
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+  }
+}
+
+/* ——— Header (transparent over hero) ——— */
+.landing-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: transparent;
+}
+
+.landing-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 40px;
-  gap: 24px;
-}
-.hero-left {
-  max-width: 520px;
-}
-.hero-left h1 {
-  font-size: 48px;
-  margin: 0 0 12px 0;
-  color: #111;
-}
-.hero-left p { color: #555; font-size: 18px; }
-.cta { margin-top: 18px; }
-.btn-primary { background: #1976d2; color: white; padding: 10px 16px; border-radius: 800px; border: none; margin-right: 8px; }
-.btn-outline { background: transparent; border: 2px solid #1976d2; color: #1976d2; padding: 8px 14px; border-radius: 8px; }
-.hero-right { width: 320px; height: 220px; display:flex; align-items:center; justify-content:center; }
-.card-3d { width: 220px; height: 140px; perspective: 800px; }
-.card-face { width: 100%; height: 100%; display:flex; align-items:center; justify-content:center; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); font-size: 28px; color: white; }
-.card-face.front { background: linear-gradient(135deg,#1976d2,#43a047); transform: rotateY(0deg) translateZ(20px); }
-.card-face.back { background: linear-gradient(135deg,#e53935,#fdd835); position: absolute; transform: rotateY(180deg) translateZ(20px); }
-.card-3d { position: relative; transform-style: preserve-3d; animation: flip 6s infinite linear; }
-@keyframes flip { 0%{ transform: rotateY(0deg);} 50%{ transform: rotateY(180deg);} 100%{ transform: rotateY(360deg);} }
-
-@media (max-width: 800px) {
-  .landing-hero { flex-direction: column; padding: 20px; }
-  .hero-right { width: 100%; height: 180px; }
+  gap: 20px;
+  min-height: 76px;
+  padding-top: 18px;
+  padding-bottom: 12px;
 }
 
-/* New Landing Page styles (overrides/extension) */
-.landing-page {
-  min-height: 100vh;
-  background: linear-gradient(180deg, #0f172a 0%, #071028 100%);
-  color: #e6eef8;
-}
-
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-.landing-header {
-  padding: 20px 0; position: sticky; top: 0; background: rgba(15,23,42,0.85); backdrop-filter: blur(10px); z-index: 100;
-}
-.header-content { display:flex; justify-content:space-between; align-items:center; }
-.logo { display:flex; align-items:center; gap:12px; font-family: 'Space Grotesk', sans-serif; font-size:24px; font-weight:700; color: #fff; }
-.logo svg { color:#fb923c }
-.nav-links { display:flex; gap:12px }
-
-.btn-logout {
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  color: white;
-  border: none;
-  padding: 8px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
+.logo {
   display: flex;
   align-items: center;
+  gap: 11px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+/* Orange-outlined fuel can (reference nav) */
+.logo-fuel-svg {
+  color: var(--landing-orange);
+  stroke: var(--landing-orange);
+  fill: none;
+  stroke-width: 1.35;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.5vw, 32px);
+  flex-shrink: 0;
+}
+
+.nav-links-inline {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.8vw, 36px);
+}
+
+.nav-links-inline a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-links-inline a:hover {
+  color: var(--landing-orange);
+}
+
+.btn-nav-cta {
+  background: var(--landing-blue);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.btn-nav-cta:hover {
+  background: var(--landing-blue-hover);
+  transform: translateY(-1px);
+}
+
+.btn-logout {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
-  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+  background: rgba(220, 38, 38, 0.9);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .btn-logout:hover {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+  background: #b91c1c;
 }
 
-.btn-logout:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
+/* ——— Hero: 100vh; content centered; illustration anchored to bottom via bg ——— */
+.hero-section {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(4rem, 8vh, 6rem) clamp(1rem, 4vw, 2rem);
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-.hero-section { padding: 120px 0; text-align:center }
-.hero-title { font-size: clamp(36px,8vw,64px); font-weight:700; line-height:1.2; margin-bottom:24px; color: white }
-.gradient-text { background: linear-gradient(135deg,#fb923c 0%,#f97316 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-.hero-subtitle { font-size:18px; color:#cbd5e1; max-width:600px; margin:0 auto 40px; line-height:1.6 }
-.hero-cta { display:flex; gap:16px; justify-content:center; }
-.btn-lg { padding:16px 36px; font-size:16px }
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  background-color: var(--landing-navy);
+  /* Darken sky at top; keep bottom lighter so car / van / tech stay visible */
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(5, 7, 12, 0.75) 0%,
+      rgba(11, 14, 20, 0.35) 32%,
+      rgba(11, 14, 20, 0.08) 58%,
+      rgba(11, 14, 20, 0.45) 100%
+    ),
+    url('/image.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
 
-.services-section { padding:80px 0; background: rgba(255,255,255,0.02); }
-.section-title { text-align:center; font-size:42px; font-weight:700; margin-bottom:60px; color:white }
-.services-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:32px }
-.service-card { background: rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:20px; padding:40px; text-align:center; transition:all 0.4s ease }
-.service-card:hover { transform: translateY(-8px); }
-.service-card { cursor: pointer; }
-.service-card:focus { outline: 3px solid rgba(249,115,22,0.18); box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
-.service-icon { width:80px; height:80px; margin:0 auto 24px; background: linear-gradient(135deg, rgba(251,146,60,0.2), rgba(249,115,22,0.2)); border-radius:20px; display:flex; align-items:center; justify-content:center; color:#fb923c }
-.service-card h3 { font-size:24px; margin-bottom:16px; color:white }
-.service-card p { color:#94a3b8; line-height:1.6 }
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
 
-.features-section { padding:80px 0 }
-.features-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap:32px }
-.feature-item { text-align:center; padding:32px; background: rgba(255,255,255,0.03); border-radius:16px }
-.feature-item svg { color:#fb923c; margin-bottom:16px }
-.feature-item h4 { font-size:20px; margin-bottom:8px; color:white }
-.feature-item p { color:#94a3b8; font-size:14px }
+.hero-content {
+  text-align: center;
+  max-width: 920px;
+  margin: 0px auto;
+  margin-bottom: 170px;
+  padding: 0 8px;
+}
 
-.landing-footer { padding:40px 0; text-align:center; border-top:1px solid rgba(255,255,255,0.1); color:#64748b }
+/* Headline: matches mockup — line 1 “On-Demand Fuel Delivery”, line 2 “& Vehicle Repair” */
+.hero-title {
+  margin: 0 0 1.25rem;
+  padding: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.hero-title-line {
+  display: block;
+}
+
+.hero-title-line-primary {
+  font-size: clamp(2rem, 5.2vw, 3.5rem);
+  line-height: 1.12;
+  margin-bottom: 0.12em;
+}
+
+.hero-title-line-secondary {
+  font-size: clamp(1.85rem, 4.8vw, 3.15rem);
+  line-height: 1.12;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.hero-text-white {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.hero-highlight {
+  color: var(--landing-orange);
+  font-weight: 800;
+}
+
+.hero-subtitle {
+  margin: 0 auto 1.75rem;
+  max-width: 36rem;
+  font-size: clamp(1rem, 1.85vw, 1.1875rem);
+  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.hero-cta {
+  display: flex;
+  justify-content: center;
+}
+
+.btn-hero-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 54px;
+  padding: 0 2.75rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background: var(--landing-blue);
+  cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(0, 102, 255, 0.35),
+    0 10px 36px rgba(0, 102, 255, 0.4);
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-hero-primary:hover {
+  background: var(--landing-blue-hover);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(0, 102, 255, 0.45),
+    0 14px 44px rgba(0, 102, 255, 0.48);
+}
+
+.btn-hero-fuel-icon,
+.btn-hero-primary svg {
+  color: #fff;
+  stroke: #fff;
+  flex-shrink: 0;
+}
+
+.btn-hero-fuel-icon {
+  fill: none;
+}
+
+/* Vehicle Repair: orange crossed wrench + gear */
+.service-icon-wrench-gear {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-icon-wrench-gear .repair-wrench {
+  color: var(--landing-orange);
+  transform: rotate(-28deg) translate(-4px, 2px);
+}
+
+.service-icon-wrench-gear .repair-gear {
+  position: absolute;
+  color: var(--landing-orange);
+  right: 14px;
+  bottom: 12px;
+  transform: rotate(18deg);
+}
+
+/* ——— Services ——— */
+.services-section {
+  padding: 80px 0 64px;
+  background: var(--landing-navy-mid);
+}
+
+.section-title {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: clamp(1.85rem, 3.4vw, 2.45rem);
+  font-weight: 800;
+  color: #fff;
+}
+
+.section-subtitle {
+  margin: 0 auto 44px;
+  text-align: center;
+  max-width: 560px;
+  font-size: 1rem;
+  color: var(--landing-text-muted);
+  line-height: 1.55;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.service-card {
+  background: rgba(22, 32, 54, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 38px 26px;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.42);
+  border-color: rgba(240, 140, 45, 0.2);
+}
+
+.service-card-static {
+  cursor: default;
+}
+
+.service-card-static:hover {
+  transform: none;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+}
+
+.service-icon {
+  width: 92px;
+  height: 92px;
+  margin: 0 auto 22px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(240, 140, 45, 0.1);
+  color: var(--landing-orange);
+}
+
+.service-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.22rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.service-card p {
+  margin: 0;
+  font-size: 0.96rem;
+  line-height: 1.58;
+  color: var(--landing-text-muted);
+}
+
+/* ——— Stats: Trusted by Thousands of Drivers ——— */
+.stats-section {
+  width: 100%;
+  padding: 80px 0 64px;
+  background: var(--landing-navy-mid);
+}
+
+.stats-section .landing-container {
+  max-width: 1400px;
+  width: 100%;
+  padding-left: clamp(16px, 2.5vw, 24px);
+  padding-right: clamp(16px, 2.5vw, 24px);
+  box-sizing: border-box;
+}
+
+.stats-section .section-title {
+  margin: 0 0 12px;
+  font-size: clamp(1.85rem, 3.4vw, 2.45rem);
+  font-weight: 800;
+  color: #fff;
+}
+
+.stats-section .section-subtitle {
+  margin: 0 auto 44px;
+  max-width: 560px;
+  font-size: 1rem;
+  color: var(--landing-text-muted);
+  line-height: 1.55;
+}
+
+/* Scoped to override Dashboard/AdminDashboard .stats-grid */
+.stats-section .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.stats-section .stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 0;
+  width: 100%;
+  padding: 38px 26px;
+  background: rgba(22, 32, 54, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px);
+}
+
+.stats-section .stat-value {
+  display: block;
+  margin: 0 0 12px;
+  font-size: clamp(1.85rem, 2.8vw, 2.35rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.stats-section .stat-label {
+  margin: 0;
+  font-size: 0.96rem;
+  font-weight: 400;
+  line-height: 1.58;
+  color: var(--landing-text-muted);
+}
+
+/* ——— Bottom band ——— */
+.landing-bottom {
+  position: relative;
+  padding: 64px 0 80px;
+  overflow: hidden;
+}
+
+.landing-bottom-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(10, 17, 32, 0.88) 0%,
+      rgba(10, 17, 32, 0.55) 45%,
+      rgba(10, 17, 32, 0.92) 100%
+    ),
+    url('/foot.png');
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  opacity: 0.75;
+}
+
+.landing-bottom .landing-container {
+  position: relative;
+  z-index: 1;
+}
+
+.landing-bottom-title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.85rem, 3.4vw, 2.45rem);
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+
+/* ——— Footer ——— */
+.landing-footer {
+  padding: 36px 0 44px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--landing-navy);
+  text-align: center;
+}
+
+.footer-contact {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: var(--landing-text-muted);
+}
+
+.footer-contact a {
+  color: var(--landing-blue);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(148, 163, 184, 0.85);
+}
+
+/* ——— Responsive ——— */
+@media (max-width: 992px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .stats-section .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
 
 @media (max-width: 768px) {
-  .hero-section { padding: 80px 0 }
-  .section-title { font-size:32px; margin-bottom:40px }
-  .services-section, .features-section { padding:60px 0 }
+  .landing-header-inner {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .nav-right {
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px 20px;
+    width: 100%;
+    margin-top: 4px;
+  }
+
+  .nav-links-inline {
+    gap: 14px;
+  }
+
+  .hero-section {
+    padding: clamp(4rem, 9vh, 5.5rem) 0 clamp(1rem, 2.5vh, 1.5rem);
+  }
+}
+
+@media (max-width: 540px) {
+  .stats-section .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-hero-primary {
+    width: 100%;
+    max-width: 320px;
+  }
 }
