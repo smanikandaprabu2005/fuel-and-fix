@@ -41,7 +41,8 @@ const UserDashboardContent = ({ currentUser }) => {
           }
         }
         console.log('Requesting fuel prices for', state, city);
-        const res = await fetch(`/api/fuel-prices?state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}`);
+        const API_BASE = import.meta.env.VITE_API_URL;
+        const res = await fetch(`${API_BASE}/api/fuel-prices?state=${encodeURIComponent(state)}&city=${encodeURIComponent(city)}`);
         const data = await res.json();
         setPetrolPrice(data.petrol);
         setDieselPrice(data.diesel);
